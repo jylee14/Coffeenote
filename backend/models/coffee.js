@@ -1,12 +1,16 @@
 const mongoose = require("mongoose")
 
 const coffeeSchema = new mongoose.Schema({
-  roastDate: {
-    type: Date,
+  bean: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Bean"
+  },
+  coffeeWeight: {
+    type: Number,
     required: true
   },
-  origin: {
-    type: String,
+  finalWeight: {
+    type: Number,
     required: true
   },
   brewMethod: {

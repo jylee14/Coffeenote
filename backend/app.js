@@ -19,6 +19,11 @@ app.use(middleware.requestLogger)
 app.use(cors())
 app.use(express.json())
 
+const beanRouter = require("./controllers/bean")
+const coffeeRouter = require("./controllers/coffee")
+app.use("/api/bean", beanRouter)
+app.use("/api/coffee", coffeeRouter)
+
 app.use(middleware.errorHandler)
 
 module.exports = app
