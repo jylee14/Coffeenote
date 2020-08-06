@@ -25,9 +25,12 @@ describe("GET", () => {
       .expect("Content-Type", /application\/json/)
 
     const beansInDb = result.body
-    expect(beansInDb).toHaveLength(testHelper.initialBeans)
+    expect(beansInDb).toHaveLength(testHelper.initialBeans.length)
     beansInDb.forEach(bean => {
-      expect(testHelper.initialBeans).toContainEqual(bean.toJSON())
+      expect(testHelper.initialBeans).toContainEqual({
+        origin: bean.origin,
+        roastDate: new Date(bean.roastDate)
+      })
     })
   })
 
