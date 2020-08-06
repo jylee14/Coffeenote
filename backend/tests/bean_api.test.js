@@ -29,7 +29,7 @@ describe("GET", () => {
     beansInDb.forEach(bean => {
       expect(testHelper.initialBeans).toContainEqual({
         origin: bean.origin,
-        roastDate: new Date(bean.roastDate)
+        roastDate: new Date(bean.roastDate).toISOString().split("T")[0]
       })
     })
   })
@@ -43,6 +43,20 @@ describe("GET", () => {
     const origins = result.body.map(bean => bean.origin.toLowerCase())
     expect(origins).toHaveLength(1)
     expect(origins).toContainEqual("colombia")
+  })
+
+  test("specific roast date", async () => {
+    const result = await api
+      .get("/api/bean/20200801")
+      .expect(200)
+      .expect("Content-Type", /application\/json/)
+
+    const beans = result.body
+    expect(beans).toHaveLength(1)
+
+    const bean = beans[0]
+    expect(bean.origin).toEqual("Ethiopia")
+    expect(new Date(bean.roastDate)).toEqual(new Date("2020-08-01"))
   })
 })
 
