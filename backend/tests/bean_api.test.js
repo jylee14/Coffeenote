@@ -58,6 +58,20 @@ describe("GET", () => {
     expect(bean.origin).toEqual("Ethiopia")
     expect(new Date(bean.roastDate)).toEqual(new Date("2020-08-01"))
   })
+
+  test("specific origin bean roasted on a date", async () => {
+    const result = await api
+      .get("/api/bean/ethiopia/20200515")
+      .expect(200)
+      .expect("Content-Type", /application\/json/)
+
+    const beans = result.body
+    expect(beans).toHaveLength(1)
+
+    const bean = beans[0]
+    expect(bean.origin).toEqual("Ethiopia")
+    expect(new Date(bean.roastDate)).toEqual(new Date("2020-05-15"))
+  })
 })
 
 afterAll(() => {

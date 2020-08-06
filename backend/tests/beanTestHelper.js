@@ -14,6 +14,18 @@ const initialBeans = [
   {
     roastDate: "2020-08-01",
     origin: "Ethiopia"
+  },
+  {
+    roastDate: "2020-01-01",
+    origin: "Ethiopia"
+  },
+  {
+    roastDate: "2020-07-31",
+    origin: "Ethiopia"
+  },
+  {
+    roastDate: "2020-05-15",
+    origin: "Ethiopia"
   }
 ]
 

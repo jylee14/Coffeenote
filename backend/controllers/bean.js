@@ -6,20 +6,23 @@ beanRouter.get("/", async (req, res) => {
   res.json(beans)
 })
 
+const formatDateString = str => {
+  if(str.length < 8) { // expect query to be in yyyymmdd format
+    return null
+  }
+  const year = str.substring(0, 4)
+  const month = str.substring(4, 6)
+  const day = str.substring(6)
+
+  return `${year}-${month}-${day}`
+}
+
 beanRouter.get("/:specific", async (req, res) => {
   const query = req.params.specific
   // is the requested detail roast date or origin?
   if (Number(query)) { 
-    if(query.length < 8) { // expect query to be in yyyymmdd format
-      return res.status(404).send()
-    }
-    const year = query.substring(0, 4)
-    const month = query.substring(4, 6)
-    const day = query.substring(6)
-
-    const beansRoastedOn = await Bean.find({
-      "roastDate": `${year}-${month}-${day}`
-    })
+    const roastDate = formatDateString(query)
+    const beansRoastedOn = await Bean.find({ roastDate })
 
     res.json(beansRoastedOn)
   } else {
@@ -31,5 +34,26 @@ beanRouter.get("/:specific", async (req, res) => {
     res.json(beansWithOrigin)
   }
 })
+
+beanRouter.get("/:origin/:date", async (req, res) => {
+  const origin = req.params.origin
+  const roastDate = formatDateString(req.params.date)
+
+  if(!roastDate) {
+    return res
+      .status(400)
+      .send({
+        error: "invalid date string"
+      })
+  }
+  const matchingBeans = await Bean.find({
+    origin: { $regex: new RegExp(origin, "i") },
+    roastDate
+  })
+
+  res.json(matchingBeans)
+})
+
+
 
 module.exports = beanRouter
