@@ -17,6 +17,7 @@ const formatDateString = str => {
   return `${year}-${month}-${day}`
 }
 
+// GET STARTS HERE
 beanRouter.get("/:specific", async (req, res) => {
   const query = req.params.specific
   // is the requested detail roast date or origin?
@@ -54,6 +55,21 @@ beanRouter.get("/:origin/:date", async (req, res) => {
   res.json(matchingBeans)
 })
 
+// POST STARTS HERE 
+beanRouter.post("/", async (req, res) => {
+  const beanObj = req.body
 
+  if(!beanObj || !beanObj.origin || !beanObj.roastDate) {
+    return res
+      .status(400)
+      .send({
+        error: "Incomplete form"
+      })
+  }
+
+  const beanDocument = new Bean(beanObj)
+  const savedBean = await beanDocument.save()
+  res.status(201).json(savedBean)
+})
 
 module.exports = beanRouter

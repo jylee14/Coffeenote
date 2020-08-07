@@ -74,6 +74,52 @@ describe("GET", () => {
   })
 })
 
+describe("POST", () => {
+  test("valid entries are added to the DB", async () => {
+    const validBean = {
+      roastDate: new Date("2020-12-31"),
+      origin: "Finland"
+    }
+
+    await api
+      .post("/api/bean")
+      .send(validBean)
+      .expect(201)
+    
+    const dbAfterPost = await Bean.find({})
+    const beanObjects = dbAfterPost.map(doc => {
+      return {
+        origin: doc.origin,
+        roastDate: doc.roastDate
+      }
+    })
+    expect(dbAfterPost).toHaveLength(testHelper.initialBeans.length + 1)
+    expect(beanObjects).toContainEqual(validBean)
+  })
+
+  test("invalid entries are rejected (missing origin)", async () => {
+    const invalidBean = {
+      roastDate: new Date()
+    }
+
+    await api
+      .post("/api/bean")
+      .send(invalidBean)
+      .expect(400)
+  })
+  
+  test("invalid entries are rejected (missing roast date)", async () => {
+    const invalidBean = {
+      origin: "Germany"
+    }
+
+    await api
+      .post("/api/bean")
+      .send(invalidBean)
+      .expect(400)
+  })
+})
+
 afterAll(() => {
   mongoose.connection.close()
 })
