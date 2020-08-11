@@ -22,9 +22,11 @@ app.use(cors())
 app.use(express.json())
 
 const userRouter = require("./controllers/user")
+const loginRouter = require("./controllers/login")
 const beanRouter = require("./controllers/bean")
 const coffeeRouter = require("./controllers/coffee")
 app.use("/api/user", userRouter)
+app.use("/api/login", loginRouter)
 app.use("/api/bean", beanRouter)
 app.use("/api/coffee", coffeeRouter)
 

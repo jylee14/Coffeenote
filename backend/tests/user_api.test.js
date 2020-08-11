@@ -6,7 +6,7 @@ const User = require("../models/user")
 
 const api = supertest(app)
 
-describe("functionality of user creation", () => {
+describe("functionality of user creation", () => {  
   beforeEach(async () => {
     await User.deleteMany({})
   
@@ -57,6 +57,37 @@ describe("functionality of user creation", () => {
       .post("/api/user")
       .send(missing)
       .expect(400)
+  })
+
+  describe("logging in", () => {
+    test("valid login returns a user token", async () => {
+      const validUser = {
+        username: "test",
+        password: "password"
+      }
+
+      const res = await api
+        .post("/api/login")
+        .send(validUser)
+        .expect(200)
+        .expect("Content-Type", /application\/json/)
+      
+      const token = res.body
+      expect(token.token).toBeDefined()
+      expect(token.username).toBe("test")
+    })
+
+    test("invalid login will return 401", async () => {
+      const invalidUser = {
+        username: "test",
+        password: "incorrect"
+      }
+
+      await api
+        .post("/api/login")
+        .send(invalidUser)
+        .expect(401)
+    })
   })
 })
 
