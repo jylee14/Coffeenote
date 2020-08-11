@@ -1,3 +1,5 @@
+const Coffee = require("../models/coffee")
+
 const initialCoffeeNotes = [
   {
     coffeeWeight: 30,
@@ -32,6 +34,27 @@ const initialCoffeeNotes = [
   }
 ]
 
+const getCoffeeInDb = async () => {
+  const coffee = await Coffee.find({})
+  return coffee.map(c => c.toJSON())
+}
+
+const invalidCoffeeId = async () => {
+  const phantomCoffee = new Coffee({
+    coffeeWeight: 1,
+    finalWeight: 20,
+    brewMethod: "",
+    tasteRating: 1    
+  })
+
+  await phantomCoffee.save()
+  await phantomCoffee.remove()
+
+  return phantomCoffee._id.toString()
+}
+
 module.exports = {
-  initialCoffeeNotes
+  initialCoffeeNotes,
+  getCoffeeInDb,
+  invalidCoffeeId
 }
