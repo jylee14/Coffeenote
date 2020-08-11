@@ -16,7 +16,7 @@ coffeeRouter.get("/", async (req, res) => {
 coffeeRouter.post("/", async (req, res) => {
   const body = req.body
 
-  if(!body) {
+  if (!body) {
     return res
       .status(400)
       .send({
@@ -31,7 +31,7 @@ coffeeRouter.post("/", async (req, res) => {
   const brewMethod = body.brewMethod
   const tasteRating = Number(body.tasteRating)
 
-  if(!origin || !roastDate || !coffeeWeight || !finalWeight || !brewMethod || !tasteRating) {
+  if (!origin || !roastDate || !coffeeWeight || !finalWeight || !brewMethod || !tasteRating) {
     return res
       .status(400)
       .send({
@@ -41,11 +41,11 @@ coffeeRouter.post("/", async (req, res) => {
 
   // check if the bean data exists in the DB already
   let bean = await Bean.findOne({
-    origin, 
+    origin,
     roastDate
   })
 
-  if(!bean) {
+  if (!bean) {
     const newBeanData = new Bean({ origin, roastDate })
     bean = await newBeanData.save()
   }
@@ -62,25 +62,21 @@ coffeeRouter.post("/", async (req, res) => {
   res.status(201).json(savedCoffee)
 })
 
-coffeeRouter.delete("/:id", async (req, res, next) => {
+coffeeRouter.delete("/:id", async (req, res) => {
   const id = req.params.id
 
-  if(!id) {
+  if (!id) {
     res.status(400).send({
       error: "invalid ID"
     })
   }
 
-  try {
-    const deleteCandidate = await Coffee.findByIdAndRemove(id)
-    if(!deleteCandidate) {
-      return res.status(404).end()
-    }
-
-    res.status(204).json(deleteCandidate)
-  } catch(e) {
-    next(e)
+  const deleteCandidate = await Coffee.findByIdAndRemove(id)
+  if (!deleteCandidate) {
+    return res.status(404).end()
   }
+
+  res.status(204).json(deleteCandidate)
 })
 
 module.exports = coffeeRouter

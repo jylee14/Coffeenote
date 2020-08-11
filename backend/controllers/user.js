@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt")
 
 const User = require("../models/user")
 
-if("test" === process.env.NODE_ENV) {
+if ("test" === process.env.NODE_ENV) {
   router.get("/", async (req, res) => {
     const users = await User.find({})
     res.json(users)
@@ -12,7 +12,7 @@ if("test" === process.env.NODE_ENV) {
 
 router.post("/", async (req, res) => {
   const body = req.body
-  if(!body) {
+  if (!body) {
     return res.status(400)
       .send({
         error: "missing body in request"
@@ -21,7 +21,7 @@ router.post("/", async (req, res) => {
 
   const username = body.username
   const password = body.password
-  if(!username || !password) { 
+  if (!username || !password) {
     return res.status(400)
       .send({
         error: "missing username or password"
