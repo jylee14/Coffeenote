@@ -63,7 +63,7 @@ describe("POST", () => {
     expect(jsonStrings).toContain(JSON.stringify(res.body))
   })
 
-  test.only("with new beans creates doc in DB", async () => {
+  test("with new beans creates doc in DB", async () => {
     await Bean.deleteMany({})
     const coffeeWithNewBean = {
       roastDate: "2020-09-01",

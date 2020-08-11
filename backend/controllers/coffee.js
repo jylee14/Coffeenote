@@ -62,4 +62,25 @@ coffeeRouter.post("/", async (req, res) => {
   res.status(201).json(savedCoffee)
 })
 
+coffeeRouter.delete("/:id", async (req, res, next) => {
+  const id = req.params.id
+
+  if(!id) {
+    res.status(400).send({
+      error: "invalid ID"
+    })
+  }
+
+  try {
+    const deleteCandidate = await Coffee.findByIdAndRemove(id)
+    if(!deleteCandidate) {
+      return res.status(404).end()
+    }
+
+    res.status(204).json(deleteCandidate)
+  } catch(e) {
+    next(e)
+  }
+})
+
 module.exports = coffeeRouter

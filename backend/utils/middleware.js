@@ -9,6 +9,12 @@ const requestLogger = (req, res, next) => {
 
 const errorHandler = (err, req, res, next) => {
   logger.err(err.message)
+
+  if("CastError" === err.name && "ObjectId" === err.kind) {
+    return res.status(400).send({
+      error: "Invalid ID"
+    })
+  }
   next()
 }
 

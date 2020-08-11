@@ -13,6 +13,7 @@ mongoose
   .catch(err => {
     logger.err(`failed to connect to mongoDB: ${err}`)
   })
+mongoose.set("useFindAndModify", false)
 
 const app = express()
 app.use(middleware.requestLogger)

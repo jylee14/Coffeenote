@@ -39,11 +39,11 @@ const getCoffeeInDb = async () => {
   return coffee.map(c => c.toJSON())
 }
 
-const invalidCoffeeId = async () => {
+const nonExistantId = async () => {
   const phantomCoffee = new Coffee({
     coffeeWeight: 1,
     finalWeight: 20,
-    brewMethod: "",
+    brewMethod: "espresso",
     tasteRating: 1    
   })
 
@@ -56,5 +56,5 @@ const invalidCoffeeId = async () => {
 module.exports = {
   initialCoffeeNotes,
   getCoffeeInDb,
-  invalidCoffeeId
+  nonExistantId
 }
