@@ -8,7 +8,7 @@ const api = supertest(app)
 
 describe("functionality of user creation", () => {
   beforeEach(async () => {
-    User.deleteMany({})
+    await User.deleteMany({})
   
     const rounds = 10
     const passwordHash = await bcrypt.hash("password", rounds)
