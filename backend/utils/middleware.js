@@ -15,6 +15,11 @@ const errorHandler = (err, req, res, next) => {
       error: "Invalid ID"
     })
   }
+  if("ValidationError" === err.name) {
+    return res.status(400).send({
+      error: "invalid field found"
+    })
+  }
   next()
 }
 

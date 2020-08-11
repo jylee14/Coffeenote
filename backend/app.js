@@ -20,8 +20,10 @@ app.use(middleware.requestLogger)
 app.use(cors())
 app.use(express.json())
 
+const userRouter = require("./controllers/user")
 const beanRouter = require("./controllers/bean")
 const coffeeRouter = require("./controllers/coffee")
+app.use("/api/user", userRouter)
 app.use("/api/bean", beanRouter)
 app.use("/api/coffee", coffeeRouter)
 
