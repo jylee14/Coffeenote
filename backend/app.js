@@ -4,6 +4,7 @@ const logger = require("./utils/logger")
 const express = require("express")
 const mongoose = require("mongoose")
 const middleware = require("./utils/middleware")
+require("express-async-errors")
 
 mongoose
   .connect(config.MONGO_URI, { useUnifiedTopology: true, useNewUrlParser: true })
