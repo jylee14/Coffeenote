@@ -17,6 +17,7 @@ mongoose
 mongoose.set("useFindAndModify", false)
 
 const app = express()
+app.use(middleware.tokenExtractor)
 app.use(middleware.requestLogger)
 app.use(cors())
 app.use(express.json())

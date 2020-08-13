@@ -10,6 +10,15 @@ if ("test" === process.env.NODE_ENV) {
   })
 }
 
+router.get("/:id", async (req, res) => {
+  const _id = req.params.id
+  const user = await User
+    .findOne({ _id })
+    .populate("coffeeNotes")
+  
+  res.json(user)
+})
+
 router.post("/", async (req, res) => {
   const body = req.body
   if (!body) {

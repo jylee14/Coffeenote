@@ -13,7 +13,7 @@ router.post("/", async (req, res) => {
   const username = body.username
   const user = await User.findOne({ username })
 
-  const validPassword = username ? await bcrypt.compare(body.password, user.passwordHash) : false
+  const validPassword = user ? await bcrypt.compare(body.password, user.passwordHash) : false
   if (!user || !validPassword) {
     return res.status(401)
       .send({

@@ -10,7 +10,15 @@ const userSchema = new mongoose.Schema({
   passwordHash: {
     type: String,
     required: true
-  }
+  },
+  coffeeNotes: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Coffee"
+  }],
+  beans: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Bean"
+  }]
 })
 
 userSchema.plugin(uniqueValidator)
