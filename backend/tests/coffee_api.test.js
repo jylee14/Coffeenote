@@ -5,6 +5,7 @@ const app = require("../app")
 const Bean = require("../models/bean")
 const Coffee = require("../models/coffee")
 const testHelper = require("./coffeeTestHelper")
+const getUserToken = require("./userTestHelper").getUserToken
 
 const api = supertest(app)
 
@@ -58,14 +59,7 @@ describe("POST", () => {
   })
 
   test("with existing bean data use existing bean", async () => {
-    const user = await api
-      .post("/api/login")
-      .send({
-        username: "test",
-        password: "password"
-      })
-    
-    const userToken = user.body
+    const userToken = await getUserToken()
     
     const coffeeWithExisingBean = {
       roastDate: "2020-07-24",
@@ -78,7 +72,7 @@ describe("POST", () => {
 
     const res = await api
       .post("/api/coffee")
-      .set("Authorization", `bearer ${userToken.token}`)
+      .set("Authorization", `bearer ${userToken}`)
       .send(coffeeWithExisingBean)
       .expect(201)
     
@@ -91,14 +85,7 @@ describe("POST", () => {
 
   test("with new beans creates doc in DB", async () => {
     await Bean.deleteMany({})
-    const user = await api
-      .post("/api/login")
-      .send({
-        username: "test",
-        password: "password"
-      })
-    
-    const userToken = user.body
+    const userToken = await getUserToken()
     const coffeeWithNewBean = {
       roastDate: "2020-09-01",
       origin: "Guatamala",
@@ -111,7 +98,7 @@ describe("POST", () => {
     const beansBeforeAdd = await Bean.find({})
     const res = await api
       .post("/api/coffee")
-      .set("Authorization", `bearer ${userToken.token}`)
+      .set("Authorization", `bearer ${userToken}`)
       .send(coffeeWithNewBean)
       .expect(201)    
     const beansAfterAdd = await Bean.find({})
@@ -141,18 +128,10 @@ describe("DELETE", () => {
     const targetCoffee = await Coffee.findOne({})
     const deleteID = targetCoffee._id.toString()
 
-    const user = await api
-      .post("/api/login")
-      .send({
-        username: "test",
-        password: "password"
-      })
-    
-    const userToken = user.body
-
+    const userToken = await getUserToken()
     await api
       .delete(`/api/coffee/${deleteID}`)
-      .set("Authorization", `bearer ${userToken.token}`)
+      .set("Authorization", `bearer ${userToken}`)
       .expect(204)
     
     const afterDelete = await Coffee.find({})
@@ -162,17 +141,10 @@ describe("DELETE", () => {
   test("non-existant ID will fail with 404", async () => {
     const nonExistantId = await testHelper.nonExistantId()
 
-    const user = await api
-      .post("/api/login")
-      .send({
-        username: "test",
-        password: "password"
-      })
-    
-    const userToken = user.body
+    const userToken = await getUserToken()
     await api
       .delete(`/api/coffee/${nonExistantId}`)
-      .set("Authorization", `bearer ${userToken.token}`)
+      .set("Authorization", `bearer ${userToken}`)
       .expect(404)
     
     const afterDelete = await Coffee.find({})
@@ -182,18 +154,10 @@ describe("DELETE", () => {
   test("invalid ID will fail with 400", async () => {
     const invalidId = "helloThisIsInvalidIdSpeaking"
 
-    const user = await api
-      .post("/api/login")
-      .send({
-        username: "test",
-        password: "password"
-      })
-    
-    const userToken = user.body
-
+    const userToken = await getUserToken()
     await api
       .delete(`/api/coffee/${invalidId}`)
-      .set("Authorization", `bearer ${userToken.token}`)
+      .set("Authorization", `bearer ${userToken}`)
       .expect(400)
   
     const afterDelete = await Coffee.find({})
