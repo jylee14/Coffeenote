@@ -83,6 +83,8 @@ coffeeRouter.post("/", async (req, res) => {
   user.coffeeNotes = user.coffeeNotes.concat(coffeeData._id)
   await user.save()
 
+  console.log(user.coffeeNotes)
+
   const savedCoffee = await coffeeData.save()
   res.status(201).json(savedCoffee)
 })

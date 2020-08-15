@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt")
 
 const User = require("../models/user")
 
-if ("test" === process.env.NODE_ENV) {
+if ("test" === process.env.NODE_ENV || "dev" === process.env.NODE_ENV) {
   router.get("/", async (req, res) => {
     const users = await User.find({})
     res.json(users)
@@ -14,7 +14,17 @@ router.get("/:id", async (req, res) => {
   const _id = req.params.id
   const user = await User
     .findOne({ _id })
-    .populate("coffeeNotes")
+    .populate({
+      path: "coffeeNotes",
+      populate: {
+        path: "bean",
+        model: "Bean"
+      }
+    })
+    .select({
+      coffeeNotes: 1,
+      username: 1
+    })
   
   res.json(user)
 })
