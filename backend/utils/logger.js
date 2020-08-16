@@ -6,7 +6,7 @@ const info = (...params) => {
 
 const err = (...params) => {
   if("test" !== process.env.NODE_ENV) {
-    console.err(...params)
+    console.error(...params)
   }
 }
 

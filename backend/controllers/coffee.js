@@ -6,12 +6,15 @@ const jwt = require("jsonwebtoken")
 const coffeeRouter = require("express").Router()
 
 coffeeRouter.get("/", async (req, res) => {
+  const token = req.token
+  const user = jwt.verify(token, process.env.SECRET_KEY)  
+
   const coffees = await Coffee
-    .find({})
+    .findById(user.id)
     .populate("bean", {
       origin: 1,
       roastDate: 1
-    })
+    })  
   res.json(coffees)
 })
 
@@ -77,7 +80,9 @@ coffeeRouter.post("/", async (req, res) => {
     coffeeWeight,
     finalWeight,
     brewMethod,
-    tasteRating
+    tasteRating,
+    brewNotes: body.brewNotes || "",
+    tasteNotes: body.tasteNotes || ""
   })
 
   user.coffeeNotes = user.coffeeNotes.concat(coffeeData._id)

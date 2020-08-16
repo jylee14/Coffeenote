@@ -28,6 +28,13 @@
   color: #61dafb;
 }
 
+.secondaryTogglable {
+  margin: 30px 0;
+  max-width: 300px;
+  border: black;
+  border-width: 3px;
+}
+
 .landingForms {
   margin: 30px 0;
   font-weight: bold;

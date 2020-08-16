@@ -1,29 +1,50 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 
-import Notification from "./components/Notification"
+import CoffeeService from "./services/coffee"
 import LoginService from "./services/login"
-import LoginForm from "./components/LoginForm"
-import CreateUserForm from "./components/CreateUserForm"
 import UserService from "./services/user"
 
-import GreetingBanner from "./components/GreetingBanner"
+import LoginForm from "./components/forms/LoginForm"
+import CreateUserForm from "./components/forms/CreateUserForm"
+import CoffeeNoteForm from "./components/forms/CoffeeNoteForm"
+
 import Togglable from "./components/Togglable"
+import CoffeeInfo from "./components/CoffeeInfo"
+import Notification from "./components/Notification"
+import GreetingBanner from "./components/GreetingBanner"
 
 function App() {
   const [user, setUser] = useState(null)
+  const [coffeeNotes, setCoffeeNoes] = useState([])
   const [message, setMessage] = useState(null)
   const [isError, setIsError] = useState(false)
 
+  // attempt to log in from previous session
   useEffect(() => {
     const savedUserString = window.localStorage.getItem("savedUser")
-    const savedUser = JSON.parse(savedUserString)
-    setUser(savedUser)
-  }, [])
+    if(savedUserString) {
+      const savedUser = JSON.parse(savedUserString)
+      setUser(savedUser)
+    }
+  }, [])  
+
+  // attempt to grab user's coffeeNotes from DB if logged in
+  useEffect(() => {
+    // if the user token exists, make a GET /api/coffee with Auth header
+    // to grab all the coffeeNotes assoc. w/ the current user
+    if(user) {
+      CoffeeService
+        .getCoffeeNotes(user.token)
+        .then(coffee => {
+          // console.log(coffee)
+        })
+    }
+  }, [user])
+  
 
   const saveUser = user => {
     window.localStorage.setItem("savedUser", JSON.stringify(user))
-
     setUser(user)
   }
 
@@ -41,12 +62,29 @@ function App() {
     }, 2500)
   }
 
+  const handleCoffeeCreate = async (coffee) => {
+    const userToken = user.token
+    const res = await CoffeeService.create(userToken, coffee)
+    const newCoffee = {}
+    setCoffeeNoes(coffeeNotes.concat(newCoffee))
+  }
+
   return (
     <div className="App"> 
     <Notification message={message} isError={isError}></Notification>
     {
       user ? 
-      <GreetingBanner username={user.username} logout={logout}></GreetingBanner>
+      <div>
+        <GreetingBanner username={user.username} logout={logout}></GreetingBanner>
+        <Togglable buttonLabel="New Coffee Note" className="secondaryTogglable">
+          <CoffeeNoteForm handleCreate={handleCoffeeCreate}/>
+        </Togglable>
+          <ul>
+          {
+          coffeeNotes.map(coffee => <li id={coffee.id}>coffee</li>)
+          }
+          </ul>
+      </div>
       :
       <div>
         <h1>Welcome to CoffeeNote!</h1>
