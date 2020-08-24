@@ -63,7 +63,8 @@ const tableStyle = {
   margin: "10px",
   border: "black",
   borderStyle: "solid",
-  borderWidth: "1px"
+  borderWidth: "1px",
+  boxSizing: "border-box"
 }
 
 const CoffeeInfo = ({ coffee }) => (
