@@ -11,7 +11,7 @@ const getCoffeeNotes = async token => {
       }
     }
   )
-  return res.body
+  return res.data
 }
 
 const create = async (token, coffee) => {
@@ -24,8 +24,7 @@ const create = async (token, coffee) => {
       }
     }
   )
-
-  return res.body
+  return res.data
 }
 
 export default { 

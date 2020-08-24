@@ -10,7 +10,7 @@ import CreateUserForm from "./components/forms/CreateUserForm"
 import CoffeeNoteForm from "./components/forms/CoffeeNoteForm"
 
 import Togglable from "./components/Togglable"
-import CoffeeInfo from "./components/CoffeeInfo"
+import CoffeeList from "./components/CoffeeList"
 import Notification from "./components/Notification"
 import GreetingBanner from "./components/GreetingBanner"
 
@@ -36,9 +36,7 @@ function App() {
     if(user) {
       CoffeeService
         .getCoffeeNotes(user.token)
-        .then(coffee => {
-          // console.log(coffee)
-        })
+        .then(coffee => setCoffeeNoes(coffee))
     }
   }, [user])
   
@@ -65,8 +63,7 @@ function App() {
   const handleCoffeeCreate = async (coffee) => {
     const userToken = user.token
     const res = await CoffeeService.create(userToken, coffee)
-    const newCoffee = {}
-    setCoffeeNoes(coffeeNotes.concat(newCoffee))
+    setCoffeeNoes(coffeeNotes.concat(res))
   }
 
   return (
@@ -79,11 +76,7 @@ function App() {
         <Togglable buttonLabel="New Coffee Note" className="secondaryTogglable">
           <CoffeeNoteForm handleCreate={handleCoffeeCreate}/>
         </Togglable>
-          <ul>
-          {
-          coffeeNotes.map(coffee => <li id={coffee.id}>coffee</li>)
-          }
-          </ul>
+        <CoffeeList coffeeData={coffeeNotes}></CoffeeList>
       </div>
       :
       <div>

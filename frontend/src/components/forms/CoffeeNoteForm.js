@@ -75,7 +75,7 @@ const CoffeeNoteForm = ({ handleCreate }) => {
               </td>
             </tr>
             <tr>
-              <td>Coffee Weight</td>
+              <td>Coffee Weight (g)</td>
               <td>
                 <input
                   type="number"
@@ -87,7 +87,7 @@ const CoffeeNoteForm = ({ handleCreate }) => {
               </td>
             </tr>
             <tr>
-              <td>Final Weight</td>
+              <td>Final Weight (mL)</td>
               <td>
                 <input
                   type="number"
