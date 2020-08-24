@@ -3,10 +3,8 @@ import CoffeeInfo from "./CoffeeInfo"
 
 const CoffeeList = ({ coffeeData }) => {  
   return (
-    <div>
-      <ul>
+    <div style={{ display: "flex"}}>
         { coffeeData.map(coffee => <CoffeeInfo key={coffee.id} coffee={coffee}></CoffeeInfo>) }
-      </ul>      
     </div>
   );
 };

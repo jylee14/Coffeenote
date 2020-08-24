@@ -81,6 +81,7 @@ const CoffeeNoteForm = ({ handleCreate }) => {
                   type="number"
                   required={true}
                   min="0"
+                  step="0.1"
                   value={coffeeWeight}
                   onChange={({ target }) => setCoffeeWeight(target.value)}
                 />
@@ -91,6 +92,7 @@ const CoffeeNoteForm = ({ handleCreate }) => {
               <td>
                 <input
                   type="number"
+                  step="0.1"
                   required={true}
                   min={coffeeWeight}
                   value={finalWeight}

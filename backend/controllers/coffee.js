@@ -9,13 +9,16 @@ coffeeRouter.get("/", async (req, res) => {
   const token = req.token
   const user = jwt.verify(token, process.env.SECRET_KEY)  
 
-  const coffees = await Coffee
+  const coffees = await User
     .findById(user.id)
-    .populate("bean", {
-      origin: 1,
-      roastDate: 1
-    })  
-  res.json(coffees)
+    .populate({
+      path: "coffeeNotes",
+      populate: {
+        path: "bean",
+        model: "Bean"
+      }
+    })
+  res.send(coffees.coffeeNotes)
 })
 
 coffeeRouter.post("/", async (req, res) => {
@@ -86,11 +89,10 @@ coffeeRouter.post("/", async (req, res) => {
   })
 
   user.coffeeNotes = user.coffeeNotes.concat(coffeeData._id)
-  await user.save()
+  await user.save()  
+  await coffeeData.save()
+  const savedCoffee = await Coffee.populate(coffeeData, { path: "bean", model: "Bean" })
 
-  console.log(user.coffeeNotes)
-
-  const savedCoffee = await coffeeData.save()
   res.status(201).json(savedCoffee)
 })
 

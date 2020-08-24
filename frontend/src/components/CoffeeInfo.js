@@ -6,44 +6,71 @@ const BeanInfo = ({ bean }) => {
     return asDate.toISOString().split('T')[0]
   }
 
-  return(
-    <div>
-      <div>origin: {bean.origin}</div>
-      <div>roast data: {formatDate(bean.roastDate)}</div>
-    </div>
+  return (
+    <tbody>
+      <tr>
+        <td>Origin</td>
+        <td>{bean.origin}</td>
+      </tr>
+      <tr>
+        <td>Roast Date</td>
+        <td>{formatDate(bean.roastDate)}</td>
+      </tr>
+    </tbody>
   )
 }
 
 const BrewInfo = ({ coffee }) => {
   return (
-    <div>
-      <div>Brew Method: {coffee.brewMethod}</div>      
-      <div>Weight of Bean: {coffee.coffeeWeight}</div>
-      <div>Final Coffee Weight: {coffee.finalWeight}</div>
-      <div>Taste Rating: {coffee.tasteRating}</div>
+    <tbody>
+      <tr>
+        <td>Brew Method</td>
+        <td>{coffee.brewMethod}</td>
+      </tr>
+      <tr>
+        <td>Weight of Bean (g)</td>
+        <td>{coffee.coffeeWeight}</td>
+      </tr>
+      <tr>
+        <td>Final Weight (mL)</td>
+        <td>{coffee.finalWeight}</td>
+      </tr>
+      <tr>
+        <td>Taste Rating</td>
+        <td>{coffee.tasteRating}</td>
+      </tr>
       {
-        coffee.brewNotes ? 
-        <div>
-          Brew Notes:
-          <p>{coffee.brewNotes}</p>
-        </div>
-        : null
+        coffee.brewNotes ?
+          <tr>
+            <td>Brew Notes</td>
+            <td><pre>{coffee.brewNotes}</pre></td>
+          </tr>
+          : null
       }
-    </div>
+      {
+        coffee.tasteNotes ? 
+          <tr>
+            <td>Taste Notes</td>
+            <td><pre>{coffee.tasteNotes}</pre></td>            
+          </tr>
+          : null
+      }
+    </tbody>
   )
 }
 
+const tableStyle = {
+  margin: "10px",
+  border: "black",
+  borderStyle: "solid",
+  borderWidth: "1px"
+}
+
 const CoffeeInfo = ({ coffee }) => (
-  <div>
-    <div>
-      bean data 
-      <BeanInfo bean={coffee.bean}></BeanInfo>
-    </div>
-    <div>
-      brew info: 
-      <BrewInfo coffee={coffee}></BrewInfo>
-    </div>
-  </div>
+  <table style={tableStyle}>
+    <BeanInfo bean={coffee.bean}></BeanInfo>
+    <BrewInfo coffee={coffee}></BrewInfo>
+  </table>
 )
 
 export default CoffeeInfo;
