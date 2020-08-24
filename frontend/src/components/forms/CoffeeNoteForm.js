@@ -31,6 +31,15 @@ const CoffeeNoteForm = ({ handleCreate }) => {
       tasteNotes
     }
 
+    setOrigin("")
+    setRoastDate(formatDate(new Date()))
+    setMethod("")
+    setCoffeeWeight(0)
+    setFinalWeight(0)
+    setRating(1)
+    setBrewNotes("")
+    setTasteNotes("")
+    
     handleCreate(coffee)
   }
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 
 import CoffeeService from "./services/coffee"
@@ -60,10 +60,13 @@ function App() {
     }, 2500)
   }
 
+  const coffeeRef = useRef()
   const handleCoffeeCreate = async (coffee) => {
+    coffeeRef.current.toggleVisibility()
     const userToken = user.token
     const res = await CoffeeService.create(userToken, coffee)
     setCoffeeNoes(coffeeNotes.concat(res))
+
   }
 
   return (
@@ -73,7 +76,7 @@ function App() {
       user ? 
       <div>
         <GreetingBanner username={user.username} logout={logout}></GreetingBanner>
-        <Togglable buttonLabel="New Coffee Note" className="secondaryTogglable">
+        <Togglable buttonLabel="New Coffee Note" className="secondaryTogglable" ref={coffeeRef}>
           <CoffeeNoteForm handleCreate={handleCoffeeCreate}/>
         </Togglable>
         <CoffeeList coffeeData={coffeeNotes}></CoffeeList>
