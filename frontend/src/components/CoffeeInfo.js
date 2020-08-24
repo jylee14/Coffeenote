@@ -48,10 +48,10 @@ const BrewInfo = ({ coffee }) => {
           : null
       }
       {
-        coffee.tasteNotes ? 
+        coffee.tasteNotes ?
           <tr>
             <td>Taste Notes</td>
-            <td><pre>{coffee.tasteNotes}</pre></td>            
+            <td><pre>{coffee.tasteNotes}</pre></td>
           </tr>
           : null
       }
@@ -59,19 +59,38 @@ const BrewInfo = ({ coffee }) => {
   )
 }
 
-const tableStyle = {
-  margin: "10px",
-  border: "black",
-  borderStyle: "solid",
-  borderWidth: "1px",
-  boxSizing: "border-box"
-}
+const CoffeeInfo = ({ coffee, width }) => {
+  const tableStyle = {
+    margin: "5px",
+    border: "black",
+    borderStyle: "solid",
+    borderWidth: "1px",
+    maxWidth: `${width / 5}px`,
+    minWidth: "300px",
+    position: "relative"
+  }
 
-const CoffeeInfo = ({ coffee }) => (
-  <table style={tableStyle}>
-    <BeanInfo bean={coffee.bean}></BeanInfo>
-    <BrewInfo coffee={coffee}></BrewInfo>
-  </table>
-)
+  const buttonContainer = { 
+    position: "absolute",
+    bottom: 0,
+    right: 0,
+    left: 0,
+    margin: "1px", 
+    textAlign: "center",
+    marginTop: "5px"
+  }
+
+  return (
+    <div style={tableStyle}>
+      <table style={{marginBottom: "10px"}}>
+        <BeanInfo bean={coffee.bean}></BeanInfo>
+        <BrewInfo coffee={coffee}></BrewInfo>
+      </table>
+      <div style={buttonContainer}>
+        <button>Delete</button>
+      </div>
+    </div>
+  )
+}
 
 export default CoffeeInfo;

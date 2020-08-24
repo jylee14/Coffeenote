@@ -57,7 +57,7 @@ function App() {
     setTimeout(() => {
       setMessage(null)
       setIsError(false)
-    }, 2500)
+    }, 3500)
   }
 
   const coffeeRef = useRef()
@@ -66,7 +66,7 @@ function App() {
     const userToken = user.token
     const res = await CoffeeService.create(userToken, coffee)
     setCoffeeNoes(coffeeNotes.concat(res))
-
+    notify("Succesfully created a new coffee note")
   }
 
   return (

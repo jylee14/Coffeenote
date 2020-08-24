@@ -12,7 +12,7 @@ const CoffeeList = ({ coffeeData }) => {
   }
   return (    
     <div style={coffeeListStyle}>
-        { coffeeData.map(coffee => <CoffeeInfo key={coffee.id} coffee={coffee}></CoffeeInfo>) }
+        { coffeeData.map(coffee => <CoffeeInfo key={coffee.id} coffee={coffee} windowWidth={dimensions.width}></CoffeeInfo>) }
     </div>
   );
 };
