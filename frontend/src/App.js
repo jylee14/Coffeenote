@@ -66,7 +66,7 @@ function App() {
           <div>
             <GreetingBanner username={user.username} logout={logout}></GreetingBanner>
             <Togglable buttonLabel="New Coffee Note" className="secondaryTogglable" ref={coffeeRef}>
-              <CoffeeNoteForm handleCreate={handleCoffeeCreate} />
+              <CoffeeNoteForm toggleVisibility={() => coffeeRef.current.toggleVisibility()} userToken={user.token} />
             </Togglable>
             <CoffeeList />
           </div>

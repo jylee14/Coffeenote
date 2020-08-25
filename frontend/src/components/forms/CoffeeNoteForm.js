@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { createCoffeeNote } from "../../redux/reducers/coffeeReducer"
 
-const CoffeeNoteForm = ({ handleCreate }) => {
+const CoffeeNoteForm = ({ userToken, toggleVisibility }) => {
+  const dispatch = useDispatch()
+
   const formatDate = date => {
     if("object" === typeof date) {
       const isoDate = date.toISOString()
@@ -40,7 +44,8 @@ const CoffeeNoteForm = ({ handleCreate }) => {
     setBrewNotes("")
     setTasteNotes("")
     
-    handleCreate(coffee)
+    dispatch(createCoffeeNote(userToken, coffee))
+    toggleVisibility()
   }
 
   return (
