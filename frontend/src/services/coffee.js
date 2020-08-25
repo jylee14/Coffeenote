@@ -2,14 +2,18 @@ import axios from "axios"
 
 const baseUrl = "/api/coffee"
 
+function tokenize(token) {
+  return {
+    headers: {
+      "Authorization": `bearer ${token}`
+    }
+  }
+}
+
 const getCoffeeNotes = async token => {
   const res = await axios.get(
     baseUrl,
-    {
-      headers: {
-        "Authorization": `bearer ${token}`
-      }
-    }
+    tokenize(token)
   )
   return res.data
 }
@@ -18,11 +22,7 @@ const create = async (token, coffee) => {
   const res = await axios.post(
     baseUrl,
     coffee,
-    {
-      headers: {
-        "Authorization": `bearer ${token}`
-      }
-    }
+    tokenize(token)
   )
   return res.data
 }

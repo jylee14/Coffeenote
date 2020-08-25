@@ -1,8 +1,11 @@
 import React from 'react';
 import CoffeeInfo from "./CoffeeInfo"
 import dimensions from "../../windowDimensions"
+import { useSelector } from 'react-redux';
 
-const CoffeeList = ({ coffeeData }) => {  
+const CoffeeList = () => {  
+  const coffeeData = useSelector(state => state.coffee)
+
   const coffeeListStyle = {
     display: "flex",
     flexDirection: "row",
