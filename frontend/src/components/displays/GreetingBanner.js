@@ -1,12 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types'
+import { useDispatch } from 'react-redux';
+import { logout } from "../../redux/reducers/userReducer"
 
-const GreetingBanner = ({ username, logout}) => {
+const GreetingBanner = ({ username }) => {
+  const dispatch = useDispatch()
+
+  const handleLogout = () => {
+    window.localStorage.removeItem("savedUser")
+    dispatch(logout())
+  }
+
   return (
     <header>
       <div>
         Welcome {username}! 
-        <button onClick={logout}>logout</button>
+        <button onClick={handleLogout}>logout</button>
       </div>
     </header>
   );

@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux';
 import { notify } from "../../redux/reducers/notifyReducer"
+import { login } from "../../redux/reducers/userReducer"
 
-const LoginForm = ({ login, saveUser }) => {
+const LoginForm = () => {
   const dispatch = useDispatch()
 
   const [username, setUsername] = useState("")
@@ -12,20 +13,11 @@ const LoginForm = ({ login, saveUser }) => {
   const handleLogin = async (e) => {
     e.preventDefault()
 
-    if(username && password) {
-      try {
-        const user = await login({
-          username, 
-          password
+    if (username && password) {
+      dispatch(login({ username, password }))
+        .catch((err) => {
+          dispatch(notify(err.message, true, 5))
         })
-
-        setUsername("")
-        setPassword("")
-        saveUser(user)
-      } catch(err) {
-        const message = err.response.data.error
-        dispatch(notify(message, true, 5))
-      }
     }
   }
 
@@ -40,7 +32,7 @@ const LoginForm = ({ login, saveUser }) => {
     <div style={loginStyle}>
       <h3>Already have a profile? Log In!</h3>
       <form onSubmit={handleLogin}>
-        <div> 
+        <div>
           username
           <input
             type="text"

@@ -10,21 +10,21 @@ export const initialLoad = () => {
   }
 }
 
-export const login = ({ username, password}) => {
+export const login = ({ username, password }) => {
   return async dispatch => {
-    const user = await loginService.login({
-      username, 
-      password
-    })
-    if(user) {
+    try {
+      const user = await loginService.login({
+        username,
+        password
+      })
       window.localStorage.setItem("savedUser", JSON.stringify(user))
-      console.log(user)
       dispatch({
         type: "LOGIN",
         user
       })
-    } else {
-      throw Error("Failed to log in")
+    } catch (err) {
+      const message = err.response.data.error
+      throw new Error(message)
     }
   }
 }
@@ -41,6 +41,8 @@ export const logout = () => {
 const reducer = (state = null, action) => {
   switch (action.type) {
     case "INITIAL_LOAD":
+      return action.user
+    case "LOGIN":
       return action.user
     case "LOGOUT":
       return null

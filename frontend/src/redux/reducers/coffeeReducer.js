@@ -35,7 +35,7 @@ export const createCoffeeNote = (token, data) => {
 
 export const deleteCoffeeNote = (token, id) => {
   return async dispatch => {
-    const res = await service.deleteCoffeeNote(token, id)
+    await service.deleteCoffeeNote(token, id)
     dispatch({
       type: "DELETE_COFFEE_NOTE",
       data: { id }

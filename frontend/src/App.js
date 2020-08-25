@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
 
 import LoginService from "./services/login"
@@ -19,38 +19,21 @@ import { initialLoad } from "./redux/reducers/userReducer"
 function App() {
   const dispatch = useDispatch()
 
-  const [user, setUser] = useState(null)
-
   // attempt to log in from previous session
   useEffect(() => {
-    const savedUserString = window.localStorage.getItem("savedUser")
-    if (savedUserString) {
-      const savedUser = JSON.parse(savedUserString)
-      setUser(savedUser)
-    }
-  }, [])
+    dispatch(initialLoad())
+  }, [dispatch])
 
+  const user = useSelector(state => state.user)
   // attempt to grab user's coffeeNotes from DB if logged in
   // if the user token exists, make a GET /api/coffee with Auth header
   // to grab all the coffeeNotes assoc. w/ the current user
   useEffect(() => {
     if (user) {
-      dispatch(initialLoad())
       dispatch(initializeCoffee(user.token))
     }
   }, [user, dispatch])
-
-
-  const saveUser = user => {
-    window.localStorage.setItem("savedUser", JSON.stringify(user))
-    setUser(user)
-  }
-
-  const logout = () => {
-    window.localStorage.removeItem("savedUser")
-    setUser(null)
-  }
-
+  
   const coffeeRef = useRef()
   return (
     <div className="App">
@@ -58,7 +41,7 @@ function App() {
       {
         user ?
           <div>
-            <GreetingBanner username={user.username} logout={logout}></GreetingBanner>
+            <GreetingBanner username={user.username}></GreetingBanner>
             <Togglable buttonLabel="New Coffee Note" className="secondaryTogglable" ref={coffeeRef}>
               <CoffeeNoteForm toggleVisibility={() => coffeeRef.current.toggleVisibility()} userToken={user.token} />
             </Togglable>
@@ -68,7 +51,7 @@ function App() {
           <div>
             <h1>Welcome to CoffeeNote!</h1>
             <div className="landingForms">
-              <LoginForm login={LoginService.login} saveUser={saveUser} />
+              <LoginForm login={LoginService.login} />
               <Togglable buttonLabel="Create a profile">
                 <CreateUserForm create={UserService.create} />
               </Togglable>

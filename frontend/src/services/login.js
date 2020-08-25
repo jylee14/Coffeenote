@@ -3,8 +3,12 @@ import axios from "axios"
 const baseUrl = "/api/login"
 
 const login = async credential => {
-  const res = await axios.post(baseUrl, credential)
-  return res.data
+  try {
+    const res = await axios.post(baseUrl, credential)
+    return res.data
+  } catch (err) {
+    throw err
+  }
 }
 
 export default { login }
