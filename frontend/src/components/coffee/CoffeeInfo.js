@@ -1,4 +1,6 @@
 import React from 'react';
+import { deleteCoffeeNote } from "../../redux/reducers/coffeeReducer"
+import { useDispatch, useSelector } from 'react-redux';
 
 const BeanInfo = ({ bean }) => {
   const formatDate = (dateString) => {
@@ -60,6 +62,9 @@ const BrewInfo = ({ coffee }) => {
 }
 
 const CoffeeInfo = ({ coffee, width }) => {
+  const dispatch = useDispatch()
+  const user = useSelector(state => state.user)
+
   const tableStyle = {
     margin: "5px",
     border: "black",
@@ -80,6 +85,10 @@ const CoffeeInfo = ({ coffee, width }) => {
     marginTop: "5px"
   }
 
+  const deleteNote = () => {
+    dispatch(deleteCoffeeNote(user.token, coffee.id))
+  }
+
   return (
     <div style={tableStyle}>
       <table style={{marginBottom: "10px"}}>
@@ -87,7 +96,7 @@ const CoffeeInfo = ({ coffee, width }) => {
         <BrewInfo coffee={coffee}></BrewInfo>
       </table>
       <div style={buttonContainer}>
-        <button>Delete</button>
+        <button onClick={deleteNote}>Delete</button>
       </div>
     </div>
   )

@@ -6,6 +6,8 @@ const reducer = (state = [], action) => {
       return action.data
     case "CREATE_COFFEE_NOTE":
       return [...state, action.data]
+    case "DELETE_COFFEE_NOTE":
+      return state.filter(coffee => coffee.id !== action.data.id)
     default:
       return state
   }
@@ -27,6 +29,16 @@ export const createCoffeeNote = (token, data) => {
     dispatch({
       type: "CREATE_COFFEE_NOTE",
       data: res
+    })
+  }
+}
+
+export const deleteCoffeeNote = (token, id) => {
+  return async dispatch => {
+    const res = await service.deleteCoffeeNote(token, id)
+    dispatch({
+      type: "DELETE_COFFEE_NOTE",
+      data: { id }
     })
   }
 }

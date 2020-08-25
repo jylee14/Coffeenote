@@ -13,8 +13,8 @@ import Togglable from "./components/displays/Togglable"
 import CoffeeList from "./components/coffee/CoffeeList"
 import Notification from "./components/displays/Notification"
 import GreetingBanner from "./components/displays/GreetingBanner"
-import { initializeCoffee, createCoffeeNote } from './redux/reducers/coffeeReducer';
-import { notify } from "./redux/reducers/notifyReducer"
+import { initializeCoffee } from './redux/reducers/coffeeReducer'
+import { initialLoad } from "./redux/reducers/userReducer"
 
 function App() {
   const dispatch = useDispatch()
@@ -35,6 +35,7 @@ function App() {
   // to grab all the coffeeNotes assoc. w/ the current user
   useEffect(() => {
     if (user) {
+      dispatch(initialLoad())
       dispatch(initializeCoffee(user.token))
     }
   }, [user, dispatch])
@@ -51,13 +52,6 @@ function App() {
   }
 
   const coffeeRef = useRef()
-  const handleCoffeeCreate = async (coffee) => {
-    coffeeRef.current.toggleVisibility()
-    const userToken = user.token
-    dispatch(createCoffeeNote(userToken, coffee))
-    dispatch(notify("New note created!", false, 5))
-  }
-
   return (
     <div className="App">
       <Notification />

@@ -27,7 +27,16 @@ const create = async (token, coffee) => {
   return res.data
 }
 
+const deleteCoffeeNote = async (token, id) => {
+  const res = await axios.delete(
+    `${baseUrl}/${id}`,
+    tokenize(token)
+  )
+  return res.data
+}
+
 export default { 
   getCoffeeNotes,
-  create
+  create,
+  deleteCoffeeNote
 }
