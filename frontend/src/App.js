@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import './App.css';
 
-import CoffeeService from "./services/coffee"
 import LoginService from "./services/login"
 import UserService from "./services/user"
 
@@ -15,13 +14,12 @@ import CoffeeList from "./components/coffee/CoffeeList"
 import Notification from "./components/displays/Notification"
 import GreetingBanner from "./components/displays/GreetingBanner"
 import { initializeCoffee, createCoffeeNote } from './redux/reducers/coffeeReducer';
+import { notify } from "./redux/reducers/notifyReducer"
 
 function App() {
   const dispatch = useDispatch()
 
   const [user, setUser] = useState(null)
-  const [message, setMessage] = useState(null)
-  const [isError, setIsError] = useState(false)
 
   // attempt to log in from previous session
   useEffect(() => {
@@ -52,26 +50,17 @@ function App() {
     setUser(null)
   }
 
-  const notify = (message, isError) => {
-    setMessage(message)
-    setIsError(isError)
-    setTimeout(() => {
-      setMessage(null)
-      setIsError(false)
-    }, 3500)
-  }
-
   const coffeeRef = useRef()
   const handleCoffeeCreate = async (coffee) => {
     coffeeRef.current.toggleVisibility()
     const userToken = user.token
     dispatch(createCoffeeNote(userToken, coffee))
-    notify("Succesfully created a new coffee note")
+    dispatch(notify("New note created!", false, 5))
   }
 
   return (
     <div className="App">
-      <Notification message={message} isError={isError}></Notification>
+      <Notification />
       {
         user ?
           <div>
@@ -79,15 +68,15 @@ function App() {
             <Togglable buttonLabel="New Coffee Note" className="secondaryTogglable" ref={coffeeRef}>
               <CoffeeNoteForm handleCreate={handleCoffeeCreate} />
             </Togglable>
-            <CoffeeList></CoffeeList>
+            <CoffeeList />
           </div>
           :
           <div>
             <h1>Welcome to CoffeeNote!</h1>
             <div className="landingForms">
-              <LoginForm login={LoginService.login} saveUser={saveUser} notify={notify} />
+              <LoginForm login={LoginService.login} saveUser={saveUser} />
               <Togglable buttonLabel="Create a profile">
-                <CreateUserForm create={UserService.create} notify={notify}></CreateUserForm>
+                <CreateUserForm create={UserService.create} />
               </Togglable>
             </div>
           </div>

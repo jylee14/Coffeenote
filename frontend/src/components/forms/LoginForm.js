@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types'
+import { useDispatch } from 'react-redux';
+import { notify } from "../../redux/reducers/notifyReducer"
 
-const LoginForm = ({ login, saveUser, notify }) => {
+const LoginForm = ({ login, saveUser }) => {
+  const dispatch = useDispatch()
+
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
 
@@ -20,7 +24,7 @@ const LoginForm = ({ login, saveUser, notify }) => {
         saveUser(user)
       } catch(err) {
         const message = err.response.data.error
-        notify(`failed to log in: ${message}`, true)
+        dispatch(notify(message, true, 5))
       }
     }
   }
@@ -61,8 +65,7 @@ const LoginForm = ({ login, saveUser, notify }) => {
 };
 
 LoginForm.propTypes = {
-  login: PropTypes.func.isRequired,
-  notify: PropTypes.func.isRequired
+  login: PropTypes.func.isRequired
 }
 
 export default LoginForm;
