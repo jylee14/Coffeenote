@@ -10,9 +10,9 @@ import CreateUserForm from "./components/forms/CreateUserForm"
 import CoffeeNoteForm from "./components/forms/CoffeeNoteForm"
 
 import Togglable from "./components/Togglable"
-import CoffeeList from "./components/CoffeeList"
-import Notification from "./components/Notification"
-import GreetingBanner from "./components/GreetingBanner"
+import CoffeeList from "./components/coffee/CoffeeList"
+import Notification from "./components/displays/Notification"
+import GreetingBanner from "./components/displays/GreetingBanner"
 
 function App() {
   const [user, setUser] = useState(null)

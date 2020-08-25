@@ -1,6 +1,6 @@
 import React from 'react';
 import CoffeeInfo from "./CoffeeInfo"
-import dimensions from "../windowDimensions"
+import dimensions from "../../windowDimensions"
 
 const CoffeeList = ({ coffeeData }) => {  
   const coffeeListStyle = {
