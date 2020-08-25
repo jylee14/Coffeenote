@@ -9,7 +9,7 @@ import LoginForm from "./components/forms/LoginForm"
 import CreateUserForm from "./components/forms/CreateUserForm"
 import CoffeeNoteForm from "./components/forms/CoffeeNoteForm"
 
-import Togglable from "./components/Togglable"
+import Togglable from "./components/displays/Togglable"
 import CoffeeList from "./components/coffee/CoffeeList"
 import Notification from "./components/displays/Notification"
 import GreetingBanner from "./components/displays/GreetingBanner"
