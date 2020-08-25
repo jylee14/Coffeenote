@@ -2,19 +2,12 @@ import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
 
-import LoginService from "./services/login"
-import UserService from "./services/user"
-
-import LoginForm from "./components/forms/LoginForm"
-import CreateUserForm from "./components/forms/CreateUserForm"
-import CoffeeNoteForm from "./components/forms/CoffeeNoteForm"
-
-import Togglable from "./components/displays/Togglable"
-import CoffeeList from "./components/coffee/CoffeeList"
 import Notification from "./components/displays/Notification"
-import GreetingBanner from "./components/displays/GreetingBanner"
 import { initializeCoffee } from './redux/reducers/coffeeReducer'
 import { initialLoad } from "./redux/reducers/userReducer"
+
+import UserPage from "./components/displays/UserPage"
+import LandingPage from "./components/displays/LandingPage"
 
 function App() {
   const dispatch = useDispatch()
@@ -34,29 +27,11 @@ function App() {
     }
   }, [user, dispatch])
   
-  const coffeeRef = useRef()
   return (
     <div className="App">
       <Notification />
       {
-        user ?
-          <div>
-            <GreetingBanner username={user.username}></GreetingBanner>
-            <Togglable buttonLabel="New Coffee Note" className="secondaryTogglable" ref={coffeeRef}>
-              <CoffeeNoteForm toggleVisibility={() => coffeeRef.current.toggleVisibility()} userToken={user.token} />
-            </Togglable>
-            <CoffeeList />
-          </div>
-          :
-          <div>
-            <h1>Welcome to CoffeeNote!</h1>
-            <div className="landingForms">
-              <LoginForm login={LoginService.login} />
-              <Togglable buttonLabel="Create a profile">
-                <CreateUserForm create={UserService.create} />
-              </Togglable>
-            </div>
-          </div>
+        user ? <UserPage user={user}></UserPage> : <LandingPage></LandingPage>
       }
     </div>
   );
