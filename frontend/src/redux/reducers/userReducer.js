@@ -41,7 +41,6 @@ export const logout = () => {
 const reducer = (state = null, action) => {
   switch (action.type) {
     case "INITIAL_LOAD":
-      console.log("hello world", action)
       return action.user
     case "LOGOUT":
       return null
