@@ -1,24 +1,23 @@
-import React, {useState} from 'react';
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { notify } from "../../redux/reducers/notifyReducer"
+import { createUser } from "../../redux/reducers/userReducer"
 
-const CreateUserForm = ({ create, notify }) => {
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
+const CreateUserForm = ({ create }) => {
+  const dispatch = useDispatch() 
 
   const handleCreateNewUser = async (e) => {
     e.preventDefault()
 
+    const username = e.target.username.value
+    const password = e.target.password.value
     try {
-      const res = await create({
-        username,
-        password
-      })
-      if(res) {
-        notify(`new profile for ${username} created successfully!`)
-        setUsername("")
-        setPassword("")
-      }
+      dispatch(createUser(username, password))
+      dispatch(notify(`new profile for ${username} created successfully!`, false))
+      e.target.username.value = ''
+      e.target.password.value = ''      
     }catch(e){
-      notify("Failed to create a new user!", true)
+      dispatch(notify(`Failed to create a new user: ${e.message}`, true))
     }
   }
 
@@ -30,16 +29,14 @@ const CreateUserForm = ({ create, notify }) => {
           username
           <input
             type="text"
-            onChange={({ target }) => { setUsername(target.value) }}
-            value={username}
+            name="username"
           />
         </div>
         <div>
           password
           <input
             type="password"
-            onChange={({ target }) => { setPassword(target.value) }}
-            value={password}
+            name="password"
           />
         </div>
         <button type="submit">create</button>

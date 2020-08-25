@@ -1,4 +1,4 @@
-export const notify = (message, isError, timeout) => {
+export const notify = (message, isError, timeout = 3) => {
   return dispatch => {
     dispatch({
       type: "NOTIFY",

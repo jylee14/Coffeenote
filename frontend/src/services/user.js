@@ -3,12 +3,15 @@ import axios from 'axios'
 const baseUrl = "/api/user"
 
 const create = async ({ username, password }) => {
-  const res = await axios.post(baseUrl, {
-    username,
-    password
-  })
-
-  return res.data
+  try {
+    const res = await axios.post(baseUrl, {
+      username,
+      password
+    })
+    return res.data
+  } catch (err) {
+    throw err
+  }
 }
 
 const getUser = async ({ id }) => {
@@ -16,7 +19,7 @@ const getUser = async ({ id }) => {
   return res.data
 }
 
-export default { 
+export default {
   create,
   getUser
 }

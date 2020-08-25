@@ -10,6 +10,23 @@ export const initialLoad = () => {
   }
 }
 
+export const createUser = (username, password) => {
+  return async dispatch => {
+    try {
+      // create a new user and grab the token thats passed back
+      const res = await userService.create({
+        username,
+        password
+      })
+      window.localStorage.setItem("savedUser", JSON.stringify(res))
+      dispatch(initialLoad())
+    } catch (err) {
+      const message = err.response.data.error
+      throw new Error(message)
+    }
+  }
+}
+
 export const login = ({ username, password }) => {
   return async dispatch => {
     try {
