@@ -1,30 +1,30 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { createCoffeeNote } from "../../redux/reducers/coffeeReducer"
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { createCoffeeNote } from '../../redux/reducers/coffeeReducer'
 
 const CoffeeNoteForm = ({ userToken, toggleVisibility }) => {
   const dispatch = useDispatch()
 
   const formatDate = date => {
-    if("object" === typeof date) {
+    if('object' === typeof date) {
       const isoDate = date.toISOString()
-      return isoDate.split("T")[0]
+      return isoDate.split('T')[0]
     }
   }
 
-  const [origin, setOrigin] = useState("")
+  const [origin, setOrigin] = useState('')
   const [roastDate, setRoastDate] = useState(formatDate(new Date()))
-  const [method, setMethod] = useState("")
+  const [method, setMethod] = useState('')
   const [coffeeWeight, setCoffeeWeight] = useState(0)
   const [finalWeight, setFinalWeight] = useState(0)
   const [rating, setRating] = useState(1)
-  const [brewNotes, setBrewNotes] = useState("")
-  const [tasteNotes, setTasteNotes] = useState("")
+  const [brewNotes, setBrewNotes] = useState('')
+  const [tasteNotes, setTasteNotes] = useState('')
 
   const createNote = e => {
-    e.preventDefault() 
+    e.preventDefault()
 
-    const coffee = { 
+    const coffee = {
       origin,
       roastDate: new Date(roastDate),
       coffeeWeight,
@@ -35,15 +35,15 @@ const CoffeeNoteForm = ({ userToken, toggleVisibility }) => {
       tasteNotes
     }
 
-    setOrigin("")
+    setOrigin('')
     setRoastDate(formatDate(new Date()))
-    setMethod("")
+    setMethod('')
     setCoffeeWeight(0)
     setFinalWeight(0)
     setRating(1)
-    setBrewNotes("")
-    setTasteNotes("")
-    
+    setBrewNotes('')
+    setTasteNotes('')
+
     dispatch(createCoffeeNote(userToken, coffee))
     toggleVisibility()
   }
@@ -71,7 +71,7 @@ const CoffeeNoteForm = ({ userToken, toggleVisibility }) => {
                   type="date"
                   required={true}
                   value={roastDate}
-                  onChange={({ target }) => { 
+                  onChange={({ target }) => {
                     setRoastDate(target.value)
                   }}
                 />
@@ -129,7 +129,7 @@ const CoffeeNoteForm = ({ userToken, toggleVisibility }) => {
             <tr>
               <td>Brew Notes</td>
               <td>
-                <textarea 
+                <textarea
                   value={brewNotes}
                   onChange={({ target }) => setBrewNotes(target.value)}
                 />
@@ -138,7 +138,7 @@ const CoffeeNoteForm = ({ userToken, toggleVisibility }) => {
             <tr>
               <td>Taste Notes</td>
               <td>
-                <textarea 
+                <textarea
                   value={tasteNotes}
                   onChange={({ target }) => setTasteNotes(target.value)}
                 />
@@ -149,7 +149,7 @@ const CoffeeNoteForm = ({ userToken, toggleVisibility }) => {
         <button type="submit">submit</button>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default CoffeeNoteForm;
+export default CoffeeNoteForm

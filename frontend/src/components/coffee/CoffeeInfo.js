@@ -1,6 +1,6 @@
-import React from 'react';
-import { deleteCoffeeNote } from "../../redux/reducers/coffeeReducer"
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react'
+import { deleteCoffeeNote } from '../../redux/reducers/coffeeReducer'
+import { useDispatch, useSelector } from 'react-redux'
 
 const BeanInfo = ({ bean }) => {
   const formatDate = (dateString) => {
@@ -66,23 +66,23 @@ const CoffeeInfo = ({ coffee, width }) => {
   const user = useSelector(state => state.user)
 
   const tableStyle = {
-    margin: "5px",
-    border: "black",
-    borderStyle: "solid",
-    borderWidth: "1px",
+    margin: '5px',
+    border: 'black',
+    borderStyle: 'solid',
+    borderWidth: '1px',
     maxWidth: `${width / 5}px`,
-    minWidth: "300px",
-    position: "relative"
+    minWidth: '300px',
+    position: 'relative'
   }
 
-  const buttonContainer = { 
-    position: "absolute",
+  const buttonContainer = {
+    position: 'absolute',
     bottom: 0,
     right: 0,
     left: 0,
-    margin: "1px", 
-    textAlign: "center",
-    marginTop: "5px"
+    margin: '1px',
+    textAlign: 'center',
+    marginTop: '5px'
   }
 
   const deleteNote = () => {
@@ -91,7 +91,7 @@ const CoffeeInfo = ({ coffee, width }) => {
 
   return (
     <div style={tableStyle}>
-      <table style={{marginBottom: "10px"}}>
+      <table style={{ marginBottom: '10px' }}>
         <BeanInfo bean={coffee.bean}></BeanInfo>
         <BrewInfo coffee={coffee}></BrewInfo>
       </table>
@@ -102,4 +102,4 @@ const CoffeeInfo = ({ coffee, width }) => {
   )
 }
 
-export default CoffeeInfo;
+export default CoffeeInfo

@@ -1,10 +1,10 @@
-import React, { useRef } from 'react';
-import CoffeeNoteForm from "../forms/CoffeeNoteForm"
+import React, { useRef } from 'react'
+import CoffeeNoteForm from '../forms/CoffeeNoteForm'
 
-import Filter from "../forms/Filter"
-import Togglable from "../displays/Togglable"
-import CoffeeList from "../coffee/CoffeeList"
-import GreetingBanner from "../displays/GreetingBanner"
+import Filter from '../forms/Filter'
+import Togglable from '../displays/Togglable'
+import CoffeeList from '../coffee/CoffeeList'
+import GreetingBanner from '../displays/GreetingBanner'
 
 const UserPage = ({ user }) => {
   const coffeeRef = useRef()
@@ -17,7 +17,7 @@ const UserPage = ({ user }) => {
         <CoffeeNoteForm toggleVisibility={() => coffeeRef.current.toggleVisibility()} userToken={user.token} />
       </Togglable>
     </div>
-  );
-};
+  )
+}
 
-export default UserPage;
+export default UserPage

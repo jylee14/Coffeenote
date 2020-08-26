@@ -1,11 +1,11 @@
-import userService from "../../services/user"
-import loginService from "../../services/login"
+import userService from '../../services/user'
+import loginService from '../../services/login'
 
 export const initialLoad = () => {
-  const savedUserString = window.localStorage.getItem("savedUser")
+  const savedUserString = window.localStorage.getItem('savedUser')
   const user = savedUserString ? JSON.parse(savedUserString) : null
   return {
-    type: "INITIAL_LOAD",
+    type: 'INITIAL_LOAD',
     user
   }
 }
@@ -18,7 +18,7 @@ export const createUser = (username, password) => {
         username,
         password
       })
-      window.localStorage.setItem("savedUser", JSON.stringify(res))
+      window.localStorage.setItem('savedUser', JSON.stringify(res))
       dispatch(initialLoad())
     } catch (err) {
       const message = err.response.data.error
@@ -34,9 +34,9 @@ export const login = ({ username, password }) => {
         username,
         password
       })
-      window.localStorage.setItem("savedUser", JSON.stringify(user))
+      window.localStorage.setItem('savedUser', JSON.stringify(user))
       dispatch({
-        type: "LOGIN",
+        type: 'LOGIN',
         user
       })
     } catch (err) {
@@ -48,23 +48,23 @@ export const login = ({ username, password }) => {
 
 export const logout = () => {
   return dispatch => {
-    window.localStorage.removeItem("savedUser")
+    window.localStorage.removeItem('savedUser')
     dispatch({
-      type: "LOGOUT"
+      type: 'LOGOUT'
     })
   }
 }
 
 const reducer = (state = null, action) => {
   switch (action.type) {
-    case "INITIAL_LOAD":
-      return action.user
-    case "LOGIN":
-      return action.user
-    case "LOGOUT":
-      return null
-    default:
-      return state
+  case 'INITIAL_LOAD':
+    return action.user
+  case 'LOGIN':
+    return action.user
+  case 'LOGOUT':
+    return null
+  default:
+    return state
   }
 }
 

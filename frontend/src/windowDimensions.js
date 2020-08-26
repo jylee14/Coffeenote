@@ -1,9 +1,9 @@
 /**
- * custom hook to grab window width/height within the app 
+ * custom hook to grab window width/height within the app
  * source: https://stackoverflow.com/a/36862446
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'
 
 const getWindowDimensions = () => {
   return {
@@ -17,8 +17,8 @@ export default function useWindowDimensions() {
 
   useEffect(() => {
     const handleResize = () => setDimensions(getWindowDimensions())
-    window.addEventListener("resize", handleResize)
-    return () => window.removeEventListener("resize", handleResize)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
   }, [])
 
   return dimensions

@@ -1,11 +1,11 @@
-import React from 'react';
-import Togglable from "./Togglable"
+import React from 'react'
+import Togglable from './Togglable'
 
-import LoginService from "../../services/login"
-import UserService from "../../services/user"
+import LoginService from '../../services/login'
+import UserService from '../../services/user'
 
-import LoginForm from "../forms/LoginForm"
-import CreateUserForm from "../forms/CreateUserForm"
+import LoginForm from '../forms/LoginForm'
+import CreateUserForm from '../forms/CreateUserForm'
 
 const LandingPage = () => {
   return (
@@ -18,7 +18,7 @@ const LandingPage = () => {
         </Togglable>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default LandingPage;
+export default LandingPage

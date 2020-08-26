@@ -1,11 +1,11 @@
-import axios from "axios"
+import axios from 'axios'
 
-const baseUrl = "/api/coffee"
+const baseUrl = '/api/coffee'
 
 function tokenize(token) {
   return {
     headers: {
-      "Authorization": `bearer ${token}`
+      'Authorization': `bearer ${token}`
     }
   }
 }
@@ -35,7 +35,7 @@ const deleteCoffeeNote = async (token, id) => {
   return res.data
 }
 
-export default { 
+export default {
   getCoffeeNotes,
   create,
   deleteCoffeeNote

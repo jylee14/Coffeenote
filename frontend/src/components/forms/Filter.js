@@ -1,6 +1,6 @@
-import React from 'react';
-import { setFilterProperty, setFilterOperation, setFilterPredicate } from "../../redux/reducers/filterReducer"
-import { useDispatch } from 'react-redux';
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { setFilterProperty, setFilterOperation, setFilterPredicate } from '../../redux/reducers/filterReducer'
 
 const FilterProperties = ({ filterables }) => {
   const dispatch = useDispatch()
@@ -8,6 +8,7 @@ const FilterProperties = ({ filterables }) => {
 
   return (
     <select onChange={onChange}>
+      <option>---</option>
       {
         filterables.map(filterable => <option key={filterable} value={filterable.toCamelCase()}>{filterable.capitalizeEach()}</option>)
       }
@@ -17,11 +18,19 @@ const FilterProperties = ({ filterables }) => {
 
 const FilterOperations = () => {
   const dispatch = useDispatch()
+  const property = useSelector(state => state.filter.property)
   const onChange = e => dispatch(setFilterOperation(e.target.value))
 
-  let operations = ["contains"]
+  let operations
+  if(property.ignoreCaseIncludes('date') || property.ignoreCaseIncludes('rating')) {
+    operations = ['equals', 'less than', 'greater than']
+  } else {
+    operations = ['contains']
+  }
+
   return (
     <select onChange={onChange}>
+      <option>---</option>
       {
         operations.map(operation => <option key={operation} value={operation.toCamelCase()}>{operation}</option>)
       }
@@ -44,7 +53,7 @@ const FilterPredicate = () => {
 }
 
 const Filter = () => {
-  const filterables = ["origin", "roast date", "brew method", "brew notes", "taste notes"]
+  const filterables = ['origin', 'roast date', 'brew method', 'taste rating', 'brew notes', 'taste notes']
 
   return (
     <div>
@@ -53,7 +62,7 @@ const Filter = () => {
       <FilterOperations />
       <FilterPredicate />
     </div>
-  );
-};
+  )
+}
 
-export default Filter;
+export default Filter
