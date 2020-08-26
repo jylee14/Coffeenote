@@ -3,11 +3,13 @@ import thunk from 'redux-thunk'
 import userReducer from "./reducers/userReducer"
 import coffeeReducer from "./reducers/coffeeReducer"
 import notifyReducer from "./reducers/notifyReducer"
+import filterReducer from "./reducers/filterReducer"
 
 const reducers = combineReducers({
   user: userReducer,
   coffee: coffeeReducer,
-  notify: notifyReducer
+  notify: notifyReducer,
+  filter: filterReducer
 })
 
 const store = createStore(

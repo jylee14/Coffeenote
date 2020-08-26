@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
 
@@ -8,6 +8,8 @@ import { initialLoad } from "./redux/reducers/userReducer"
 
 import UserPage from "./components/displays/UserPage"
 import LandingPage from "./components/displays/LandingPage"
+
+import "./misc/string"
 
 function App() {
   const dispatch = useDispatch()
@@ -30,9 +32,7 @@ function App() {
   return (
     <div className="App">
       <Notification />
-      {
-        user ? <UserPage user={user}></UserPage> : <LandingPage></LandingPage>
-      }
+      { user ? <UserPage user={user}></UserPage> : <LandingPage></LandingPage> }
     </div>
   );
 }
