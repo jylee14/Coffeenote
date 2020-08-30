@@ -1,5 +1,5 @@
-const mongoose = require("mongoose")
-const uniqueValidator = require("mongoose-unique-validator")
+const mongoose = require('mongoose')
+const uniqueValidator = require('mongoose-unique-validator')
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -13,17 +13,17 @@ const userSchema = new mongoose.Schema({
   },
   coffeeNotes: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Coffee"
+    ref: 'Coffee'
   }],
   beans: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Bean"
+    ref: 'Bean'
   }]
 })
 
 userSchema.plugin(uniqueValidator)
 
-userSchema.set("toJSON", {
+userSchema.set('toJSON', {
   transform: (doc, obj) => {
     obj.id = obj._id.toString()
     delete obj._id
@@ -32,4 +32,4 @@ userSchema.set("toJSON", {
   }
 })
 
-module.exports = new mongoose.model("User", userSchema)
+module.exports = new mongoose.model('User', userSchema)

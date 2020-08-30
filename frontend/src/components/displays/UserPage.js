@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState } from 'react'
 import Modal from 'react-modal'
 import CoffeeNoteForm from '../forms/CoffeeNoteForm'
 
@@ -7,7 +7,7 @@ import CoffeeList from '../coffee/CoffeeList'
 import GreetingBanner from '../displays/GreetingBanner'
 
 const UserPage = ({ user }) => {
-  Modal.setAppElement(".App")
+  Modal.setAppElement('.App')
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
   const openModal = () => setModalIsOpen(true)
@@ -22,7 +22,7 @@ const UserPage = ({ user }) => {
       marginRight: '-50%',
       transform: 'translate(-50%, -50%)'
     }
-  };
+  }
 
   return (
     <div>

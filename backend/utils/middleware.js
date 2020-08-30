@@ -1,4 +1,4 @@
-const logger = require("./logger")
+const logger = require('./logger')
 
 const requestLogger = (req, res, next) => {
   logger.info(`Method: ${req.method}`)
@@ -9,8 +9,8 @@ const requestLogger = (req, res, next) => {
 }
 
 const tokenExtractor = (req, res, next) => {
-  const authToken = req.get("authorization")
-  if(authToken && authToken.toLowerCase().startsWith("bearer ")) {
+  const authToken = req.get('authorization')
+  if(authToken && authToken.toLowerCase().startsWith('bearer ')) {
     req.token = authToken.substring(7) 
   }
   next()
@@ -19,14 +19,14 @@ const tokenExtractor = (req, res, next) => {
 const errorHandler = (err, req, res, next) => {
   logger.err(err.message)
 
-  if("CastError" === err.name && "ObjectId" === err.kind) {
+  if('CastError' === err.name && 'ObjectId' === err.kind) {
     return res.status(400).send({
-      error: "Invalid ID"
+      error: 'Invalid ID'
     })
   }
-  if("ValidationError" === err.name) {
+  if('ValidationError' === err.name) {
     return res.status(400).send({
-      error: "invalid field found"
+      error: 'invalid field found'
     })
   }
   next()

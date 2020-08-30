@@ -1,10 +1,10 @@
-const router = require("express").Router()
-const bcrypt = require("bcrypt")
-const jwt = require("jsonwebtoken")
+const router = require('express').Router()
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
-const User = require("../models/user")
+const User = require('../models/user')
 
-router.post("/", async (req, res) => {
+router.post('/', async (req, res) => {
   const body = req.body
   if (!body) {
     return res.status(400).end()
@@ -17,7 +17,7 @@ router.post("/", async (req, res) => {
   if (!user || !validPassword) {
     return res.status(401)
       .send({
-        error: "invalid username or password"
+        error: 'invalid username or password'
       })
   }
 

@@ -1,35 +1,35 @@
-const Coffee = require("../models/coffee")
+const Coffee = require('../models/coffee')
 
 const initialCoffeeNotes = [
   {
     coffeeWeight: 30,
     finalWeight: 500,
-    brewMethod: "Pour Over",
+    brewMethod: 'Pour Over',
     tasteRating: 5,
-    brewNotes: "Bloom weight: 60 grams, 300g at 1:15, 500g at 1:45, drawdown took 3:30 "
+    brewNotes: 'Bloom weight: 60 grams, 300g at 1:15, 500g at 1:45, drawdown took 3:30 '
   }, 
   {
     coffeeWeight: 30,
     finalWeight: 500,
-    brewMethod: "French Press",
+    brewMethod: 'French Press',
     tasteRating: 2
   }, 
   {
     coffeeWeight: 17,
     finalWeight: 75,
-    brewMethod: "Espresso",
+    brewMethod: 'Espresso',
     tasteRating: 5
   }, 
   {
     coffeeWeight: 20,
     finalWeight: 350,
-    brewMethod: "Moka Pot",
+    brewMethod: 'Moka Pot',
     tasteRating: 4,
   }, 
   {
     coffeeWeight: 15,
     finalWeight: 250,
-    brewMethod: "Drip machine",
+    brewMethod: 'Drip machine',
     tasteRating: 2
   }
 ]
@@ -43,7 +43,7 @@ const nonExistantId = async () => {
   const phantomCoffee = new Coffee({
     coffeeWeight: 1,
     finalWeight: 20,
-    brewMethod: "espresso",
+    brewMethod: 'espresso',
     tasteRating: 1    
   })
 

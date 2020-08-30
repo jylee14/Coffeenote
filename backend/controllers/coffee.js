@@ -1,33 +1,33 @@
-const User = require("../models/user")
-const Bean = require("../models/bean")
-const Coffee = require("../models/coffee")
+const User = require('../models/user')
+const Bean = require('../models/bean')
+const Coffee = require('../models/coffee')
 
-const jwt = require("jsonwebtoken")
-const coffeeRouter = require("express").Router()
+const jwt = require('jsonwebtoken')
+const coffeeRouter = require('express').Router()
 
-coffeeRouter.get("/", async (req, res) => {
+coffeeRouter.get('/', async (req, res) => {
   const token = req.token
   const user = jwt.verify(token, process.env.SECRET_KEY)  
 
   const coffees = await User
     .findById(user.id)
     .populate({
-      path: "coffeeNotes",
+      path: 'coffeeNotes',
       populate: {
-        path: "bean",
-        model: "Bean"
+        path: 'bean',
+        model: 'Bean'
       }
     })
   res.send(coffees.coffeeNotes)
 })
 
-coffeeRouter.post("/", async (req, res) => {
+coffeeRouter.post('/', async (req, res) => {
   const token = req.token
   if(!token) {
     return res
       .status(401)
       .send({
-        error: "Missing request token"
+        error: 'Missing request token'
       })
   }
   
@@ -36,7 +36,7 @@ coffeeRouter.post("/", async (req, res) => {
     return res
       .status(400)
       .send({
-        error: "Missing request body"
+        error: 'Missing request body'
       })
   }
 
@@ -45,7 +45,7 @@ coffeeRouter.post("/", async (req, res) => {
     return res
       .status(401)
       .send({
-        error: "Missing request token"
+        error: 'Missing request token'
       })
   }
 
@@ -62,7 +62,7 @@ coffeeRouter.post("/", async (req, res) => {
     return res
       .status(400)
       .send({
-        error: "Missing required data"
+        error: 'Missing required data'
       })
   }
 
@@ -84,25 +84,25 @@ coffeeRouter.post("/", async (req, res) => {
     finalWeight,
     brewMethod,
     tasteRating,
-    brewNotes: body.brewNotes || "",
-    tasteNotes: body.tasteNotes || ""
+    brewNotes: body.brewNotes || '',
+    tasteNotes: body.tasteNotes || ''
   })
 
   user.coffeeNotes = user.coffeeNotes.concat(coffeeData._id)
   await user.save()  
   await coffeeData.save()
-  const savedCoffee = await Coffee.populate(coffeeData, { path: "bean", model: "Bean" })
+  const savedCoffee = await Coffee.populate(coffeeData, { path: 'bean', model: 'Bean' })
 
   res.status(201).json(savedCoffee)
 })
 
-coffeeRouter.delete("/:id", async (req, res) => {
+coffeeRouter.delete('/:id', async (req, res) => {
   const token = req.token 
   if(!token) {
     return res
       .status(401)
       .send({
-        error: "Missing request token"
+        error: 'Missing request token'
       })
   }
 
@@ -110,7 +110,7 @@ coffeeRouter.delete("/:id", async (req, res) => {
 
   if (!id) {
     res.status(400).send({
-      error: "invalid ID"
+      error: 'invalid ID'
     })
   }
 

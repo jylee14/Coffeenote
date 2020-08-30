@@ -11,10 +11,9 @@ export const initialLoad = () => {
 }
 
 export const createUser = (username, password) => {
-  return async dispatch => {
+  return async () => {
     try {
-      // create a new user and grab the token thats passed back
-      const res = await userService.create({
+      await userService.create({
         username,
         password
       })

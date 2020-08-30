@@ -1,9 +1,9 @@
-const mongoose = require("mongoose")
+const mongoose = require('mongoose')
 
 const coffeeSchema = new mongoose.Schema({
   bean: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Bean"
+    ref: 'Bean'
   },
   coffeeWeight: {
     type: Number,
@@ -25,7 +25,7 @@ const coffeeSchema = new mongoose.Schema({
   tasteNotes: String
 })
 
-coffeeSchema.set("toJSON", {
+coffeeSchema.set('toJSON', {
   transform: (doc, obj) => {
     obj.id = obj._id.toString() 
     delete obj._id
@@ -33,4 +33,4 @@ coffeeSchema.set("toJSON", {
   }
 })
 
-module.exports = new mongoose.model("Coffee", coffeeSchema)
+module.exports = new mongoose.model('Coffee', coffeeSchema)

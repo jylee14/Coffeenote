@@ -1,25 +1,25 @@
-const router = require("express").Router()
-const bcrypt = require("bcrypt")
-const jwt = require("jsonwebtoken")
+const router = require('express').Router()
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
-const User = require("../models/user")
+const User = require('../models/user')
 
-if ("test" === process.env.NODE_ENV || "dev" === process.env.NODE_ENV) {
-  router.get("/", async (req, res) => {
+if ('test' === process.env.NODE_ENV || 'dev' === process.env.NODE_ENV) {
+  router.get('/', async (req, res) => {
     const users = await User.find({})
     res.json(users)
   })
 }
 
-router.get("/:id", async (req, res) => {
+router.get('/:id', async (req, res) => {
   const _id = req.params.id
   const user = await User
     .findOne({ _id })
     .populate({
-      path: "coffeeNotes",
+      path: 'coffeeNotes',
       populate: {
-        path: "bean",
-        model: "Bean"
+        path: 'bean',
+        model: 'Bean'
       }
     })
     .select({
@@ -30,12 +30,12 @@ router.get("/:id", async (req, res) => {
   res.json(user)
 })
 
-router.post("/", async (req, res) => {
+router.post('/', async (req, res) => {
   const body = req.body
   if (!body) {
     return res.status(400)
       .send({
-        error: "missing body in request"
+        error: 'missing body in request'
       })
   }
 
@@ -44,7 +44,7 @@ router.post("/", async (req, res) => {
   if (!username || !password) {
     return res.status(400)
       .send({
-        error: "missing username or password"
+        error: 'missing username or password'
       })
   }
 

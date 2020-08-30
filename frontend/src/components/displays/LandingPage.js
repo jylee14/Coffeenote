@@ -1,12 +1,5 @@
 import React from 'react'
-import Togglable from './Togglable'
-
-import LoginService from '../../services/login'
-import UserService from '../../services/user'
-
-import LoginForm from '../forms/LoginForm'
-import CreateUserForm from '../forms/CreateUserForm'
-import { Link, Switch, Route } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const LandingPage = () => {
   return (

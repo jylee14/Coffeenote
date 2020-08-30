@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { logout } from '../../redux/reducers/userReducer'
 
@@ -14,8 +15,10 @@ const GreetingBanner = ({ username }) => {
   return (
     <header>
       <span>
-        <div style={{ float: "left" }}>{username}&apos;s profile!</div>
-        <button style={{ float: "right" }} onClick={handleLogout}>logout</button>
+        <div style={{ float: 'left' }}>{username}&apos;s profile!</div>
+        <Link to="/">coffee</Link>
+        <Link to="/beans">beans</Link>
+        <button style={{ float: 'right' }} onClick={handleLogout}>logout</button>
       </span>
     </header>
   )

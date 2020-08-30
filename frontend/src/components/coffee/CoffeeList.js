@@ -14,7 +14,7 @@ const CoffeeList = () => {
       return a === b
     default: // this shouldnt be hit
       throw new Error('Switch case for filterNotes hit unexpected default')
-    }    
+    }
   }
 
   const filterNotes = (note, filterProperty, filterOperation, filterPredicate) => {
@@ -42,7 +42,7 @@ const CoffeeList = () => {
       return evaluate(propertyToTest, Number(filterPredicate), filterOperation)
     }
 
-    return propertyToTest.ignoreCaseIncludes(filterPredicate)    
+    return propertyToTest.ignoreCaseIncludes(filterPredicate)
   }
 
   const coffeeData = useSelector(state => {

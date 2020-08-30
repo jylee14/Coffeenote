@@ -85,7 +85,7 @@ const CoffeeInfo = ({ coffee, width }) => {
   }
 
   const deleteNote = () => {
-    if (window.confirm("delete this note?")) {
+    if (window.confirm('delete this note?')) {
       dispatch(deleteCoffeeNote(user.token, coffee.id))
     }
   }

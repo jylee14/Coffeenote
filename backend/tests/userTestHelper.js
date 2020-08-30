@@ -1,8 +1,8 @@
-const User = require("../models/user")
-const jwt = require("jsonwebtoken")
+const User = require('../models/user')
+const jwt = require('jsonwebtoken')
 
 const getUserToken = async () => {
-  const user = await User.findOne({ username: "test"})
+  const user = await User.findOne({ username: 'test'})
 
   const userToken = {
     id: user._id,

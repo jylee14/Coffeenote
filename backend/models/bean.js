@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+const mongoose = require('mongoose')
 
 const beanSchema = new mongoose.Schema({
   roastDate: {
@@ -11,7 +11,7 @@ const beanSchema = new mongoose.Schema({
   }
 })
 
-beanSchema.set("toJSON", {
+beanSchema.set('toJSON', {
   transform: (doc, obj) => {
     obj.id = obj._id.toString()
     delete obj._id
@@ -19,4 +19,4 @@ beanSchema.set("toJSON", {
   }
 })
 
-module.exports = new mongoose.model("Bean", beanSchema)
+module.exports = new mongoose.model('Bean', beanSchema)

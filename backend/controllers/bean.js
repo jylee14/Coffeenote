@@ -1,7 +1,7 @@
-const Bean = require("../models/bean")
-const beanRouter = require("express").Router()
+const Bean = require('../models/bean')
+const beanRouter = require('express').Router()
 
-beanRouter.get("/", async (req, res) => {
+beanRouter.get('/', async (req, res) => {
   const beans = await Bean.find({})
   res.json(beans)
 })
@@ -18,7 +18,7 @@ const formatDateString = str => {
 }
 
 // GET STARTS HERE
-beanRouter.get("/:specific", async (req, res) => {
+beanRouter.get('/:specific', async (req, res) => {
   const query = req.params.specific
   // is the requested detail roast date or origin?
   if (Number(query)) { 
@@ -28,15 +28,15 @@ beanRouter.get("/:specific", async (req, res) => {
     res.json(beansRoastedOn)
   } else {
     const beansWithOrigin = await Bean.find({ 
-      "origin": {
-        $regex: new RegExp(query, "i")
+      'origin': {
+        $regex: new RegExp(query, 'i')
       }
     })
     res.json(beansWithOrigin)
   }
 })
 
-beanRouter.get("/:origin/:date", async (req, res) => {
+beanRouter.get('/:origin/:date', async (req, res) => {
   const origin = req.params.origin
   const roastDate = formatDateString(req.params.date)
 
@@ -44,11 +44,11 @@ beanRouter.get("/:origin/:date", async (req, res) => {
     return res
       .status(400)
       .send({
-        error: "invalid date string"
+        error: 'invalid date string'
       })
   }
   const matchingBeans = await Bean.find({
-    origin: { $regex: new RegExp(origin, "i") },
+    origin: { $regex: new RegExp(origin, 'i') },
     roastDate
   })
 
@@ -56,14 +56,14 @@ beanRouter.get("/:origin/:date", async (req, res) => {
 })
 
 // POST STARTS HERE 
-beanRouter.post("/", async (req, res) => {
+beanRouter.post('/', async (req, res) => {
   const beanObj = req.body
 
   if(!beanObj || !beanObj.origin || !beanObj.roastDate) {
     return res
       .status(400)
       .send({
-        error: "Incomplete form"
+        error: 'Incomplete form'
       })
   }
 

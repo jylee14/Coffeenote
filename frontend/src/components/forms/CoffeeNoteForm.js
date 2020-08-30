@@ -149,8 +149,8 @@ const CoffeeNoteForm = ({ userToken, closeModal }) => {
           </tbody>
         </table>
         <div>
-          <button style={{ float: "left" }} type="submit">submit</button>
-          <button style={{ float: "right" }} onClick={closeModal}>cancel</button>
+          <button style={{ float: 'left' }} type="submit">submit</button>
+          <button style={{ float: 'right' }} onClick={closeModal}>cancel</button>
         </div>
       </form>
     </div>

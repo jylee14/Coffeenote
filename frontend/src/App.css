@@ -11,13 +11,13 @@
 header {
   background-color: #282c34;
   opacity: 100;
-  min-height: 5vh;
+  min-height: 4vh;
   padding: 3px;
   position: fixed;
   width: 100%;
   top: 0;
   left: 0;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(10px + 1vmin);
   color: white;
 }
 
