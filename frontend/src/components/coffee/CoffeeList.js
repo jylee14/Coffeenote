@@ -4,10 +4,21 @@ import dimensions from '../../windowDimensions'
 import { useSelector } from 'react-redux'
 
 const CoffeeList = () => {
+  const evaluate = (a, b, operation) => {
+    switch(operation) {
+    case 'lessThan':
+      return a < b
+    case 'greaterThan':
+      return a > b
+    case 'equals':
+      return a === b
+    default: // this shouldnt be hit
+      throw new Error('Switch case for filterNotes hit unexpected default')
+    }    
+  }
+
   const filterNotes = (note, filterProperty, filterOperation, filterPredicate) => {
-    if (!filterPredicate || filterPredicate === '') {
-      return true
-    }
+    if (!filterPredicate || filterPredicate === '') { return true }
 
     let propertyToTest // this is the prop inside the note that will be checked
     if (filterProperty in note) {
@@ -24,35 +35,14 @@ const CoffeeList = () => {
     if (filterProperty.ignoreCaseIncludes('date')) {  // date time filtering
       const dateInObject = new Date(propertyToTest)
       const dateEntered = filterPredicate.toISODate()
-
-      switch(filterOperation) {
-      case 'lessThan':
-        return dateInObject < dateEntered
-      case 'greaterThan':
-        return dateInObject > dateEntered
-      case 'equals':
-        return dateInObject === dateEntered
-      default: // this shouldnt be hit
-        throw new Error('Switch case for filterNotes hit unexpected default. Set to', filterOperation)
-      }
+      return evaluate(dateInObject, dateEntered, filterOperation)
     }
 
     if ('number' === typeof propertyToTest) { // must support gt & lt & eq
-      switch(filterOperation) {
-      case 'lessThan':
-        return propertyToTest < filterPredicate
-      case 'greaterThan':
-        return propertyToTest > filterPredicate
-      case 'equals':
-        return propertyToTest === Number(filterPredicate)
-      default: // this shouldnt be hit
-        throw new Error('Switch case for filterNotes hit unexpected default')
-      }
+      return evaluate(propertyToTest, Number(filterPredicate), filterOperation)
     }
 
-    if ('object' === typeof propertyToTest) { // a simple case. only supports "contains"
-      return propertyToTest.ignoreCaseIncludes(filterPredicate)
-    }
+    return propertyToTest.ignoreCaseIncludes(filterPredicate)    
   }
 
   const coffeeData = useSelector(state => {

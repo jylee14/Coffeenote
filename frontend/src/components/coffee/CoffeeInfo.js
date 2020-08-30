@@ -65,7 +65,6 @@ const CoffeeInfo = ({ coffee, width }) => {
   const dispatch = useDispatch()
   const user = useSelector(state => state.user)
 
-  console.log(width)
   const tableStyle = {
     border: 'black',
     borderStyle: 'solid',
@@ -81,9 +80,8 @@ const CoffeeInfo = ({ coffee, width }) => {
     bottom: 0,
     right: 0,
     left: 0,
-    margin: '1px',
     textAlign: 'center',
-    marginTop: '5px'
+    padding: '2px'
   }
 
   const deleteNote = () => {

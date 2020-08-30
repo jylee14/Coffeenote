@@ -14,7 +14,7 @@ import UserService from './services/user'
 
 import LoginForm from './components/forms/LoginForm'
 import CreateUserForm from './components/forms/CreateUserForm'
-import { Link, Switch, Route } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 
 
 import './misc/string'
@@ -40,8 +40,6 @@ function App() {
   return (
     <div className="App">
       <Notification />
-
-
       <Switch>
         <Route path="/create">
           <CreateUserForm create={UserService.create} />
