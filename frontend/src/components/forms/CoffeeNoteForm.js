@@ -51,7 +51,7 @@ const CoffeeNoteForm = ({ userToken, closeModal }) => {
 
   return (
     <div >
-      <h1>Create new coffee note</h1>
+      <h2>Create new coffee note</h2>
       <form onSubmit={createNote}>
         <table>
           <tbody>

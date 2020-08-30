@@ -11,7 +11,7 @@
 header {
   background-color: #282c34;
   opacity: 100;
-  min-height: 8vh;
+  min-height: 5vh;
   padding: 3px;
   position: fixed;
   width: 100%;
@@ -22,8 +22,13 @@ header {
 }
 
 .userContent {
-  margin-top: 10vh;
+  margin-top: 6vh;
 }
+
+.userContent div {
+  padding: 0.25em
+}
+
 
 .App-link {
   color: #61dafb;
@@ -51,17 +56,4 @@ header {
   to {
     transform: rotate(360deg);
   }
-}
-
-#newItemModal { 
-  width: auto;
-  height: auto;
-  max-width: 350px;
-  max-height: 350px;
-  top: 50%;
-  left: 50%;
-  font-size: 1.25vh;
-  right: auto;
-  bottom: auto;
-  position: relative;
 }
