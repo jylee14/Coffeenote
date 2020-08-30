@@ -18,8 +18,6 @@ export const createUser = (username, password) => {
         username,
         password
       })
-      window.localStorage.setItem('savedUser', JSON.stringify(res))
-      dispatch(initialLoad())
     } catch (err) {
       const message = err.response.data.error
       throw new Error(message)

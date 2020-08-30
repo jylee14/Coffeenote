@@ -9,6 +9,14 @@ import { initialLoad } from './redux/reducers/userReducer'
 import UserPage from './components/displays/UserPage'
 import LandingPage from './components/displays/LandingPage'
 
+import LoginService from './services/login'
+import UserService from './services/user'
+
+import LoginForm from './components/forms/LoginForm'
+import CreateUserForm from './components/forms/CreateUserForm'
+import { Link, Switch, Route } from 'react-router-dom'
+
+
 import './misc/string'
 
 function App() {
@@ -32,7 +40,19 @@ function App() {
   return (
     <div className="App">
       <Notification />
-      { user ? <UserPage user={user}></UserPage> : <LandingPage></LandingPage> }
+
+
+      <Switch>
+        <Route path="/create">
+          <CreateUserForm create={UserService.create} />
+        </Route>
+        <Route path="/login">
+          <LoginForm login={LoginService.login} />
+        </Route>
+        <Route path="/">
+          {user ? <UserPage user={user}></UserPage> : <LandingPage></LandingPage>}
+        </Route>
+      </Switch>
     </div>
   )
 }

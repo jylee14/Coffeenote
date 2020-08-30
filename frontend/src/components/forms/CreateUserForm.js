@@ -2,8 +2,10 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { notify } from '../../redux/reducers/notifyReducer'
 import { createUser } from '../../redux/reducers/userReducer'
+import { useHistory } from 'react-router-dom'
 
 const CreateUserForm = () => {
+  const history = useHistory()
   const dispatch = useDispatch()
 
   const handleCreateNewUser = async (e) => {
@@ -14,8 +16,10 @@ const CreateUserForm = () => {
     try {
       dispatch(createUser(username, password))
       dispatch(notify(`new profile for ${username} created successfully!`, false))
+
       e.target.username.value = ''
       e.target.password.value = ''
+      history.push('/login')
     }catch(e){
       dispatch(notify(`Failed to create a new user: ${e.message}`, true))
     }

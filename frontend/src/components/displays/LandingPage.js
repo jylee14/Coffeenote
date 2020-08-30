@@ -6,16 +6,15 @@ import UserService from '../../services/user'
 
 import LoginForm from '../forms/LoginForm'
 import CreateUserForm from '../forms/CreateUserForm'
+import { Link, Switch, Route } from 'react-router-dom'
 
 const LandingPage = () => {
   return (
     <div>
       <h1>Welcome to CoffeeNote!</h1>
       <div className="landingForms">
-        <LoginForm login={LoginService.login} />
-        <Togglable buttonLabel="Create a profile">
-          <CreateUserForm create={UserService.create} />
-        </Togglable>
+        <Link to="/login"><button>Log in</button></Link>
+        <Link to="/create"><button>Create a new profile</button></Link>
       </div>
     </div>
   )

@@ -13,10 +13,10 @@ const GreetingBanner = ({ username }) => {
 
   return (
     <header>
-      <div>
-        Welcome to {username}&apos;s profile!
+      <span>
+        {username}&apos;s profile!
         <button onClick={handleLogout}>logout</button>
-      </div>
+      </span>
     </header>
   )
 }

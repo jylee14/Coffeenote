@@ -3,8 +3,10 @@ import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 import { notify } from '../../redux/reducers/notifyReducer'
 import { login } from '../../redux/reducers/userReducer'
+import { useHistory } from 'react-router-dom'
 
 const LoginForm = () => {
+  const history = useHistory()
   const dispatch = useDispatch()
 
   const handleLogin = async (e) => {
@@ -14,21 +16,13 @@ const LoginForm = () => {
     const password = e.target.password.value
     if (username && password) {
       dispatch(login({ username, password }))
-        .catch((err) => {
-          dispatch(notify(err.message, true))
-        })
+        .then(() => { history.push('/') })
+        .catch((err) => { dispatch(notify(err.message, true)) })
     }
   }
 
-  const loginStyle = {
-    border: 'solid',
-    borderWidth: '2px',
-    maxWidth: '300px',
-    margin: '15px'
-  }
-
   return (
-    <div style={loginStyle}>
+    <div>
       <h3>Already have a profile? Log In!</h3>
       <form onSubmit={handleLogin}>
         <div>
