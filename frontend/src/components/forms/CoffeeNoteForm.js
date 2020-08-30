@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { createCoffeeNote } from '../../redux/reducers/coffeeReducer'
 
-const CoffeeNoteForm = ({ userToken, toggleVisibility }) => {
+const CoffeeNoteForm = ({ userToken, closeModal }) => {
   const dispatch = useDispatch()
 
   const formatDate = date => {
-    if('object' === typeof date) {
+    if ('object' === typeof date) {
       const isoDate = date.toISOString()
       return isoDate.split('T')[0]
     }
@@ -45,11 +45,13 @@ const CoffeeNoteForm = ({ userToken, toggleVisibility }) => {
     setTasteNotes('')
 
     dispatch(createCoffeeNote(userToken, coffee))
-    toggleVisibility()
+    closeModal()
   }
 
+
   return (
-    <div>
+    <div >
+      <h1>Create new coffee note</h1>
       <form onSubmit={createNote}>
         <table>
           <tbody>
@@ -146,7 +148,10 @@ const CoffeeNoteForm = ({ userToken, toggleVisibility }) => {
             </tr>
           </tbody>
         </table>
-        <button type="submit">submit</button>
+        <div>
+          <button style={{ float: "left" }} type="submit">submit</button>
+          <button style={{ float: "right" }} onClick={closeModal}>cancel</button>
+        </div>
       </form>
     </div>
   )

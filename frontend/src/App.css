@@ -52,3 +52,16 @@ header {
     transform: rotate(360deg);
   }
 }
+
+#newItemModal { 
+  width: auto;
+  height: auto;
+  max-width: 350px;
+  max-height: 350px;
+  top: 50%;
+  left: 50%;
+  font-size: 1.25vh;
+  right: auto;
+  bottom: auto;
+  position: relative;
+}

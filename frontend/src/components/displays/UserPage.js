@@ -1,22 +1,33 @@
-import React, { useRef } from 'react'
+import React, { useState, useRef } from 'react'
+import Modal from 'react-modal'
 import CoffeeNoteForm from '../forms/CoffeeNoteForm'
 
 import Filter from '../forms/Filter'
-import Togglable from '../displays/Togglable'
 import CoffeeList from '../coffee/CoffeeList'
 import GreetingBanner from '../displays/GreetingBanner'
 
 const UserPage = ({ user }) => {
-  const coffeeRef = useRef()
+  Modal.setAppElement(".App")
+  const [modalIsOpen, setModalIsOpen] = useState(false)
+
+  const openModal = () => setModalIsOpen(true)
+  const closeModal = () => setModalIsOpen(false)
+
   return (
     <div>
       <GreetingBanner username={user.username}></GreetingBanner>
       <div className="userContent">
         <Filter></Filter>
         <CoffeeList />
-        <Togglable buttonLabel="New Coffee Note" className="secondaryTogglable" ref={coffeeRef}>
-          <CoffeeNoteForm toggleVisibility={() => coffeeRef.current.toggleVisibility()} userToken={user.token} />
-        </Togglable>
+
+        <button onClick={openModal}>New Coffee Note</button>
+
+        <Modal id="newItemModal"
+          isOpen={modalIsOpen}
+          onRequestClose={closeModal}
+          contentLabel="Create new coffee note">
+          <CoffeeNoteForm userToken={user.token} closeModal={closeModal}/>
+        </Modal>
       </div>
     </div>
   )
