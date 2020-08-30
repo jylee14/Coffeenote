@@ -1,7 +1,4 @@
 # Coffeenote
-**Table of Contents**
-
-[TOC]
 ### About
 Coffeenote is a (VERY) simple web app to keep track of coffee beans + resulting brews from different roasters.
 
