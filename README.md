@@ -1,6 +1,6 @@
 # Coffeenote
 ### About
-Coffeenote is a (VERY) simple web app to keep track of coffee beans + resulting brews from different roasters.
+Coffeenote is a simple web app to keep track of coffee beans + resulting brews from different roasters.
 
 ### Requirements
 + npm
