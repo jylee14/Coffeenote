@@ -14,8 +14,8 @@ const GreetingBanner = ({ username }) => {
   return (
     <header>
       <span>
-        {username}&apos;s profile!
-        <button onClick={handleLogout}>logout</button>
+        <div style={{ float: "left" }}>{username}&apos;s profile!</div>
+        <button style={{ float: "right" }} onClick={handleLogout}>logout</button>
       </span>
     </header>
   )

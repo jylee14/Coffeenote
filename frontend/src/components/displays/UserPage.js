@@ -11,11 +11,13 @@ const UserPage = ({ user }) => {
   return (
     <div>
       <GreetingBanner username={user.username}></GreetingBanner>
-      <Filter></Filter>
-      <CoffeeList />
-      <Togglable buttonLabel="New Coffee Note" className="secondaryTogglable" ref={coffeeRef}>
-        <CoffeeNoteForm toggleVisibility={() => coffeeRef.current.toggleVisibility()} userToken={user.token} />
-      </Togglable>
+      <div className="userContent">
+        <Filter></Filter>
+        <CoffeeList />
+        <Togglable buttonLabel="New Coffee Note" className="secondaryTogglable" ref={coffeeRef}>
+          <CoffeeNoteForm toggleVisibility={() => coffeeRef.current.toggleVisibility()} userToken={user.token} />
+        </Togglable>
+      </div>
     </div>
   )
 }
