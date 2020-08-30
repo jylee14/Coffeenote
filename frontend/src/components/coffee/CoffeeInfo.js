@@ -65,14 +65,15 @@ const CoffeeInfo = ({ coffee, width }) => {
   const dispatch = useDispatch()
   const user = useSelector(state => state.user)
 
+  console.log(width)
   const tableStyle = {
-    margin: '5px',
     border: 'black',
     borderStyle: 'solid',
     borderWidth: '1px',
     maxWidth: `${width / 5}px`,
     minWidth: '300px',
-    position: 'relative'
+    position: 'relative',
+    margin: width < 450 ? 'auto' : '5px',
   }
 
   const buttonContainer = {
@@ -86,7 +87,9 @@ const CoffeeInfo = ({ coffee, width }) => {
   }
 
   const deleteNote = () => {
-    dispatch(deleteCoffeeNote(user.token, coffee.id))
+    if (window.confirm("delete this note?")) {
+      dispatch(deleteCoffeeNote(user.token, coffee.id))
+    }
   }
 
   return (

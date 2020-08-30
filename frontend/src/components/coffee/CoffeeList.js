@@ -64,16 +64,17 @@ const CoffeeList = () => {
     return allNotes.filter(note => filterNotes(note, filterProperty, filterOperation, filterPredicate))
   })
 
+  const width = dimensions().width
   const coffeeListStyle = {
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
     border: '10px',
-    maxWidth: `${dimensions.width - 20}px`
+    maxWidth: `${width - 20}px`
   }
   return (
     <div style={coffeeListStyle}>
-      {coffeeData.map(coffee => <CoffeeInfo key={coffee.id} coffee={coffee} windowWidth={dimensions.width}></CoffeeInfo>)}
+      {coffeeData.map(coffee => <CoffeeInfo key={coffee.id} coffee={coffee} width={width}></CoffeeInfo>)}
     </div>
   )
 }
