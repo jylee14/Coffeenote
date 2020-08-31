@@ -86,4 +86,20 @@ beanRouter.post('/', async (req, res) => {
   res.status(201).json(savedBean)
 })
 
+// DELETE 
+beanRouter.delete('/:id', async (req, res) => {
+  if(!req.token){ return res.status(401).end() }
+
+  const id = req.params.id
+  if(!id){
+    return res.status(400).end()
+  }
+  
+  const deleteCandidate = await Bean.findByIdAndRemove(id)
+  if(!deleteCandidate) {
+    return res.status(404).end()
+  }
+  res.status(204).json(deleteCandidate)
+})
+
 module.exports = beanRouter

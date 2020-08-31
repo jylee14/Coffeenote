@@ -4,7 +4,7 @@ Math.average = function(...nums) {
   let sum = 0
   for(let i = 0; i < nums.length; i++) {
     const num = nums[i]
-    if(typeof num !== 'number') { 
+    if(typeof num !== 'number') {
       throw new TypeError(`element ${num} is not a number`)
     }
     sum += Number(num)

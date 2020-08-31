@@ -1,30 +1,41 @@
-import React, { useEffect } from 'react';
-import Modal from 'react-modal'
-import { useSelector } from 'react-redux';
-import BeanInfo from './BeanInfo';
+import React, { useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
-const BeanList = ({ style, userToken, isOpen, openModal, closeModal }) => {
-  Modal.setAppElement('div')
+import { Counter } from '../../../misc/counter'
+
+const BeanList = ({ beans, setBeans }) => {
   const convertDateString = date => new Date(date).toDateString()
-  const rawData = useSelector(state => state.bean)  
+  const rawData = useSelector(state => state.bean)
 
-  let beans = []
   useEffect(() => {
-    if(rawData.length === 0) { return }
-    console.log(rawData)
-    for(let i = 0; i < rawData.beans.length; i++){
+    if (rawData.length === 0) { return }
+
+    let processedBeans = []
+    for (let i = 0; i < rawData.beans.length; i++) {
       const currentBean = rawData.beans[i]
       const referencedCoffee = rawData
         .coffeeNotes
         .filter(x => x.bean === currentBean.id)
-      
+
       const referencedCounts = referencedCoffee.length
       const tasteRatings = referencedCoffee.map(x => x.tasteRating)
-      const brewMethods = referencedCoffee.map(x => x.brewMethods)
-      const averageTasteRating = Math.average(...tasteRatings)
-      console.log(`${currentBean.origin}-${currentBean.roastDate} has been referenced ${referencedCounts} times and has avg rating of ${averageTasteRating}`)
+      const avgTasteRating = Math.average(...tasteRatings)
+      const brewCounter = new Counter(referencedCoffee.map(x => x.brewMethod))
+      const mostFrequent = brewCounter.mostFrequent
+
+      processedBeans = processedBeans.concat({
+        id: currentBean.id,
+        origin: currentBean.origin,
+        roastDate: currentBean.roastDate,
+        referencedCounts,
+        avgTasteRating,
+        mostFrequentBrew: mostFrequent.element,
+        brewFrequency: mostFrequent.frequency
+      })
     }
-  }, [rawData])
+    setBeans(processedBeans)
+  }, [rawData, setBeans])
 
   const linkStyle = {
     background: 'none',
@@ -37,22 +48,19 @@ const BeanList = ({ style, userToken, isOpen, openModal, closeModal }) => {
   }
 
   return (
-    <ul>
-      {
-        beans.map(bean =>
-          <li style={{ padding: '3px' }} key={bean.id}>
-            <button onClick={openModal} style={linkStyle}>{bean.origin} ({convertDateString(bean.roastDate)})</button>
+    <div style={{ marginTop: '7vh' }}>
+      <h3>Here are all the recorded beans</h3>
+      <ul>
+        {
+          beans.map(bean =>
+            <li key={bean.id} style={{ padding: '3px' }} >
+              <Link to={`/beanDetail/${bean.id}`} style={linkStyle}>{bean.origin} ({convertDateString(bean.roastDate)})</Link>
+              {/* <button style={linkStyle}>{bean.origin} ({convertDateString(bean.roastDate)})</button> */}
+            </li>)
+        }
+      </ul>
+    </div>
+  )
+}
 
-            <Modal isOpen={isOpen}
-              onRequestClose={closeModal}
-              contentLabel="Create new coffee note"
-              style={style}>
-              <BeanInfo bean={bean} />
-            </Modal>
-          </li>)
-      }
-    </ul>
-  );
-};
-
-export default BeanList;
+export default BeanList

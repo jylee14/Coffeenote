@@ -1,4 +1,5 @@
 import service from '../../services/coffee'
+import { initializeBeans } from './beanReducer'
 
 const reducer = (state = [], action) => {
   switch(action.type)  {
@@ -26,6 +27,7 @@ export const initializeCoffee = (token) => {
 export const createCoffeeNote = (token, data) => {
   return async dispatch => {
     const res = await service.create(token, data)
+    dispatch(initializeBeans(token))
     dispatch({
       type: 'CREATE_COFFEE_NOTE',
       data: res

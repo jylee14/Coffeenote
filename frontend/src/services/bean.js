@@ -15,4 +15,9 @@ const getAll = async token => {
   return res.data
 }
 
-export default { getAll }
+const deleteBean = async (id, token) => {
+  const res = await axios.delete(`${baseUrl}/${id}`, tokenize(token))
+  return res.data
+}
+
+export default { getAll, deleteBean }

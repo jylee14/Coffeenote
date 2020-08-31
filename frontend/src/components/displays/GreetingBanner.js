@@ -13,7 +13,7 @@ const GreetingBanner = ({ username }) => {
   }
 
   const padding = {
-    padding: "15px"
+    padding: '15px'
   }
   return (
     <header>

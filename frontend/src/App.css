@@ -50,3 +50,7 @@ a:hover {
   flex-direction: row;
   justify-content: space-between;
 }
+
+.infoList li {
+  float: left;
+}

@@ -2,6 +2,10 @@ import React, { useEffect } from 'react'
 import { Switch, Route } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
+import './App.css'
+import './misc/math'
+import './misc/string'
+
 import { initialLoad } from './redux/reducers/userReducer'
 import { initializeCoffee } from './redux/reducers/coffeeReducer'
 
@@ -12,9 +16,6 @@ import Notification from './components/displays/Notification'
 import LoginForm from './components/forms/LoginForm'
 import CreateUserForm from './components/forms/CreateUserForm'
 
-import './App.css'
-import './misc/math'
-import './misc/string'
 import { initializeBeans } from './redux/reducers/beanReducer'
 
 function App() {

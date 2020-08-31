@@ -1,14 +1,16 @@
 import React, { useState } from 'react'
-import { Route } from 'react-router-dom'
+import { Route, useRouteMatch } from 'react-router-dom'
 import CoffeeNoteForm from '../forms/CoffeeNoteForm'
 
 import Filter from '../forms/Filter'
 import BeanList from './bean/BeanList'
+import BeanInfo from './bean/BeanInfo'
 import CoffeeList from './coffee/CoffeeList'
 import GreetingBanner from '../displays/GreetingBanner'
 
 const UserPage = ({ user }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [beans, setBeans] = useState([])
 
   const openModal = () => setModalIsOpen(true)
   const closeModal = () => setModalIsOpen(false)
@@ -24,14 +26,20 @@ const UserPage = ({ user }) => {
     }
   }
 
+  const beanById = id => beans.find(bean => bean.id === id)
+  const match = useRouteMatch('/beanDetail/:id')
+  const selectedBean = match ? beanById(match.params.id) : null
+
   return (
     <div>
       <GreetingBanner username={user.username}></GreetingBanner>
 
-      <Route path="/bean">
-        <BeanList style={style} userToken={user.token} isOpen={modalIsOpen} openModal={openModal} closeModal={closeModal} />
+      <Route path="/beanDetail/:id">
+        <BeanInfo bean={selectedBean} userToken={user.token}></BeanInfo>
       </Route>
-
+      <Route path="/bean">
+        <BeanList beans={beans} setBeans={setBeans} />
+      </Route>
       <Route path="/coffee">
         <div className="userContent">
           <Filter></Filter>
