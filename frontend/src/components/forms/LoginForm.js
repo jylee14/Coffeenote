@@ -39,8 +39,9 @@ const LoginForm = () => {
             name="password"
           />
         </div>
-        <button id="login-button" type="submit">login</button>
+        <button id="login-button" type="submit">Login</button>
       </form>
+      <button onClick={() => history.push('/')}>Cancel</button>
     </div>
   )
 }

@@ -43,8 +43,9 @@ const CreateUserForm = () => {
             name="password"
           />
         </div>
-        <button type="submit">create</button>
+        <button type="submit">Create</button>
       </form>
+      <button onClick={() => history.push('/')}>Cancel</button>
     </div>
   )
 }

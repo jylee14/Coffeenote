@@ -2,12 +2,6 @@
   text-align: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 header {
   background-color: #282c34;
   opacity: 100;
@@ -31,7 +25,15 @@ header {
 
 
 .App-link {
-  color: #61dafb;
+  color: white;
+}
+
+a {
+  color: white;
+}
+
+a:hover { 
+  color: #00F;
 }
 
 .secondaryTogglable {
@@ -47,13 +49,4 @@ header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }

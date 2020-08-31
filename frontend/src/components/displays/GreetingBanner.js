@@ -12,13 +12,19 @@ const GreetingBanner = ({ username }) => {
     dispatch(logout())
   }
 
+  const padding = {
+    padding: "15px"
+  }
   return (
     <header>
       <span>
-        <div style={{ float: 'left' }}>{username}&apos;s profile!</div>
-        <Link to="/">coffee</Link>
-        <Link to="/beans">beans</Link>
-        <button style={{ float: 'right' }} onClick={handleLogout}>logout</button>
+        <div style={{ float: 'left' }}>Welcome {username}!</div>
+        <span style={{ float: 'right' }}>
+          <Link style={padding} to="/">Home</Link>
+          <Link style={padding} to="/coffee">Coffee</Link>
+          <Link style={padding} to="/beans">Beans</Link>
+          <button onClick={handleLogout}>Logout</button>
+        </span>
       </span>
     </header>
   )
