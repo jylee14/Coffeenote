@@ -1,23 +1,21 @@
 import React, { useEffect } from 'react'
+import { Switch, Route } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import './App.css'
 
-import Notification from './components/displays/Notification'
-import { initializeCoffee } from './redux/reducers/coffeeReducer'
 import { initialLoad } from './redux/reducers/userReducer'
+import { initializeCoffee } from './redux/reducers/coffeeReducer'
 
 import UserPage from './components/displays/UserPage'
 import LandingPage from './components/displays/LandingPage'
-
-import LoginService from './services/login'
-import UserService from './services/user'
+import Notification from './components/displays/Notification'
 
 import LoginForm from './components/forms/LoginForm'
 import CreateUserForm from './components/forms/CreateUserForm'
-import { Switch, Route } from 'react-router-dom'
 
-
+import './App.css'
+import './misc/math'
 import './misc/string'
+import { initializeBeans } from './redux/reducers/beanReducer'
 
 function App() {
   const dispatch = useDispatch()
@@ -33,6 +31,7 @@ function App() {
   const user = useSelector(state => state.user)
   useEffect(() => {
     if (user) {
+      dispatch(initializeBeans(user.token))
       dispatch(initializeCoffee(user.token))
     }
   }, [user, dispatch])
@@ -42,10 +41,10 @@ function App() {
       <Notification />
       <Switch>
         <Route path="/create">
-          <CreateUserForm create={UserService.create} />
+          <CreateUserForm />
         </Route>
         <Route path="/login">
-          <LoginForm login={LoginService.login} />
+          <LoginForm />
         </Route>
         <Route path="/">
           {user ? <UserPage user={user}></UserPage> : <LandingPage></LandingPage>}

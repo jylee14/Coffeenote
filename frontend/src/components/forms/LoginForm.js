@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 import { notify } from '../../redux/reducers/notifyReducer'
 import { login } from '../../redux/reducers/userReducer'
@@ -44,10 +43,6 @@ const LoginForm = () => {
       <button onClick={() => history.push('/')}>Cancel</button>
     </div>
   )
-}
-
-LoginForm.propTypes = {
-  login: PropTypes.func.isRequired
 }
 
 export default LoginForm

@@ -1,5 +1,5 @@
 import React from 'react'
-import { deleteCoffeeNote } from '../../redux/reducers/coffeeReducer'
+import { deleteCoffeeNote } from '../../../redux/reducers/coffeeReducer'
 import { useDispatch, useSelector } from 'react-redux'
 
 const BeanInfo = ({ bean }) => {

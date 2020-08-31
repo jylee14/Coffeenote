@@ -1,19 +1,19 @@
 import React, { useState } from 'react'
-import Modal from 'react-modal'
+import { Route } from 'react-router-dom'
 import CoffeeNoteForm from '../forms/CoffeeNoteForm'
 
 import Filter from '../forms/Filter'
-import CoffeeList from '../coffee/CoffeeList'
+import BeanList from './bean/BeanList'
+import CoffeeList from './coffee/CoffeeList'
 import GreetingBanner from '../displays/GreetingBanner'
 
 const UserPage = ({ user }) => {
-  Modal.setAppElement('.App')
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
   const openModal = () => setModalIsOpen(true)
   const closeModal = () => setModalIsOpen(false)
 
-  const customStyles = {
+  const style = {
     content: {
       top: '50%',
       left: '50%',
@@ -27,20 +27,20 @@ const UserPage = ({ user }) => {
   return (
     <div>
       <GreetingBanner username={user.username}></GreetingBanner>
-      <div className="userContent">
-        <Filter></Filter>
 
-        <button onClick={openModal}>New Coffee Note</button>
-        <CoffeeList />
+      <Route path="/bean">
+        <BeanList style={style} userToken={user.token} isOpen={modalIsOpen} openModal={openModal} closeModal={closeModal} />
+      </Route>
 
-        <Modal id="newItemModal"
-          isOpen={modalIsOpen}
-          onRequestClose={closeModal}
-          contentLabel="Create new coffee note"
-          style={customStyles}>
-          <CoffeeNoteForm userToken={user.token} closeModal={closeModal} />
-        </Modal>
-      </div>
+      <Route path="/coffee">
+        <div className="userContent">
+          <Filter></Filter>
+
+          <button onClick={openModal}>New Coffee Note</button>
+          <CoffeeList />
+          <CoffeeNoteForm style={style} userToken={user.token} isOpen={modalIsOpen} closeModal={closeModal} />
+        </div>
+      </Route>
     </div>
   )
 }

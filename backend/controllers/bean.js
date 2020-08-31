@@ -1,13 +1,11 @@
+const User = require('../models/user')
 const Bean = require('../models/bean')
 const beanRouter = require('express').Router()
 
-beanRouter.get('/', async (req, res) => {
-  const beans = await Bean.find({})
-  res.json(beans)
-})
+const jwt = require('jsonwebtoken')
 
 const formatDateString = str => {
-  if(str.length < 8) { // expect query to be in yyyymmdd format
+  if (str.length < 8) { // expect query to be in yyyymmdd format
     return null
   }
   const year = str.substring(0, 4)
@@ -18,16 +16,32 @@ const formatDateString = str => {
 }
 
 // GET STARTS HERE
+beanRouter.get('/', async (req, res) => {
+  if (!req.token) { return res.status(401).end() }
+
+  const user = jwt.verify(req.token, process.env.SECRET_KEY)
+  const userData = await User
+    .findById(user.id)
+    .populate('beans')
+    .populate('coffeeNotes', {
+      bean: 1,
+      brewMethod: 1,
+      tasteRating: 1
+    })
+
+  res.json(userData)
+})
+
 beanRouter.get('/:specific', async (req, res) => {
   const query = req.params.specific
   // is the requested detail roast date or origin?
-  if (Number(query)) { 
+  if (Number(query)) {
     const roastDate = formatDateString(query)
     const beansRoastedOn = await Bean.find({ roastDate })
 
     res.json(beansRoastedOn)
   } else {
-    const beansWithOrigin = await Bean.find({ 
+    const beansWithOrigin = await Bean.find({
       'origin': {
         $regex: new RegExp(query, 'i')
       }
@@ -40,7 +54,7 @@ beanRouter.get('/:origin/:date', async (req, res) => {
   const origin = req.params.origin
   const roastDate = formatDateString(req.params.date)
 
-  if(!roastDate) {
+  if (!roastDate) {
     return res
       .status(400)
       .send({
@@ -59,7 +73,7 @@ beanRouter.get('/:origin/:date', async (req, res) => {
 beanRouter.post('/', async (req, res) => {
   const beanObj = req.body
 
-  if(!beanObj || !beanObj.origin || !beanObj.roastDate) {
+  if (!beanObj || !beanObj.origin || !beanObj.roastDate) {
     return res
       .status(400)
       .send({

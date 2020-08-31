@@ -7,6 +7,10 @@ String.prototype.capitalize = function () {
   return this
 }
 
+String.prototype.isDigit = function() {
+  return /^\d$/.test(this)
+}
+
 String.prototype.capitalizeEach = function() {
   return this.split(' ').map(word => word.capitalize()).join(' ')
 }

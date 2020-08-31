@@ -22,7 +22,7 @@ const GreetingBanner = ({ username }) => {
         <span style={{ float: 'right' }}>
           <Link style={padding} to="/">Home</Link>
           <Link style={padding} to="/coffee">Coffee</Link>
-          <Link style={padding} to="/beans">Beans</Link>
+          <Link style={padding} to="/bean">Beans</Link>
           <button onClick={handleLogout}>Logout</button>
         </span>
       </span>
@@ -31,8 +31,7 @@ const GreetingBanner = ({ username }) => {
 }
 
 GreetingBanner.prototype = {
-  username: PropTypes.string.isRequired,
-  logout: PropTypes.func.isRequired
+  username: PropTypes.string.isRequired
 }
 
 export default GreetingBanner
