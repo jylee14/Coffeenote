@@ -13,10 +13,12 @@ import UserPage from './components/displays/UserPage'
 import LandingPage from './components/displays/LandingPage'
 import Notification from './components/displays/Notification'
 
-import LoginForm from './components/forms/LoginForm'
-import CreateUserForm from './components/forms/CreateUserForm'
+import { login } from './redux/reducers/userReducer'
+import { createUser } from './redux/reducers/userReducer'
+import { notify } from './redux/reducers/notifyReducer'
 
 import { initializeBeans } from './redux/reducers/beanReducer'
+import UserForm from './components/forms/UserForm'
 
 function App() {
   const dispatch = useDispatch()
@@ -37,15 +39,28 @@ function App() {
     }
   }, [user, dispatch])
 
+
+
   return (
-    <div className="App">
+    <div className="container">
       <Notification />
       <Switch>
         <Route path="/create">
-          <CreateUserForm />
+          <UserForm
+            action={createUser}
+            buttonLabel="Create"
+            onSuccess={() => {
+              dispatch(notify('New profile created successfully! Logging in...'))
+            }}
+            onFail={(err) => { dispatch(notify(err.message, true)) }}
+          />
         </Route>
         <Route path="/login">
-          <LoginForm />
+          <UserForm
+            action={login}
+            buttonLabel="Login"
+            onFail={(err) => { dispatch(notify(err.message, true)) }}
+          />
         </Route>
         <Route path="/">
           {user ? <UserPage user={user}></UserPage> : <LandingPage></LandingPage>}

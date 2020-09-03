@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { Accordion, Table, Card, Button } from 'react-bootstrap'
 
 import { Counter } from '../../../misc/counter'
+import { deleteBeans } from '../../../redux/reducers/beanReducer'
 
-const BeanList = ({ beans, setBeans }) => {
+const BeanList = ({ beans, setBeans, userToken }) => {
+  const dispatch = useDispatch()
   const convertDateString = date => new Date(date).toDateString()
   const rawData = useSelector(state => state.bean)
 
@@ -37,28 +39,45 @@ const BeanList = ({ beans, setBeans }) => {
     setBeans(processedBeans)
   }, [rawData, setBeans])
 
-  const linkStyle = {
-    background: 'none',
-    border: 'none',
-    padding: '0',
-    textDecoration: 'underline',
-    cursor: 'pointer',
-    color: 'black',
-    float: 'left'
+  const deleteBean = bean => {
+    if (bean.referencedCounts) {
+      alert('Cannot delete beans that are still referenced by coffee notes')
+      return
+    }
+
+    if (window.confirm('Are you sure you want to delete this bean?\nThis action cannot be undone.')) {
+      dispatch(deleteBeans(bean.id, userToken))
+    }
   }
 
   return (
     <div style={{ marginTop: '7vh' }}>
       <h3>Here are all the recorded beans</h3>
-      <ul>
+      <Accordion>
         {
           beans.map(bean =>
-            <li key={bean.id} style={{ padding: '3px' }} >
-              <Link to={`/beanDetail/${bean.id}`} style={linkStyle}>{bean.origin} ({convertDateString(bean.roastDate)})</Link>
-              {/* <button style={linkStyle}>{bean.origin} ({convertDateString(bean.roastDate)})</button> */}
-            </li>)
+            <Card key={bean.id}>
+              <Accordion.Toggle as={Card.Header} eventKey={bean.id}>
+                {bean.origin} ({convertDateString(bean.roastDate)})
+              </Accordion.Toggle>
+              <Accordion.Collapse eventKey={bean.id}>
+                <div>
+                  <Table>
+                    <tbody>
+                      <tr><td>Referenced</td><td>{bean.referencedCounts} times</td></tr>
+                      <tr><td>Most commonly brewed with this bean</td><td>{bean.mostFrequentBrew || '-'} ({bean.brewFrequency} times)</td></tr>
+                      <tr><td>Average taste rating with this bean</td><td>{bean.avgTasteRating || '-'}</td></tr>
+                    </tbody>
+                  </Table>
+                  <Button variant="danger" onClick={() => deleteBean(bean)} block disabled={bean.referencedCounts}>
+                    Delete
+                  </Button>
+                </div>
+              </Accordion.Collapse>
+            </Card>
+          )
         }
-      </ul>
+      </Accordion>
     </div>
   )
 }

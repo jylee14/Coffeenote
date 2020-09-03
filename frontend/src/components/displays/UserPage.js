@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
-import { Route, useRouteMatch } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import CoffeeNoteForm from '../forms/CoffeeNoteForm'
 
 import Filter from '../forms/Filter'
 import BeanList from './bean/BeanList'
-import BeanInfo from './bean/BeanInfo'
 import CoffeeList from './coffee/CoffeeList'
 import GreetingBanner from '../displays/GreetingBanner'
 
@@ -26,19 +25,12 @@ const UserPage = ({ user }) => {
     }
   }
 
-  const beanById = id => beans.find(bean => bean.id === id)
-  const match = useRouteMatch('/beanDetail/:id')
-  const selectedBean = match ? beanById(match.params.id) : null
-
   return (
     <div>
       <GreetingBanner username={user.username}></GreetingBanner>
 
-      <Route path="/beanDetail/:id">
-        <BeanInfo bean={selectedBean} userToken={user.token}></BeanInfo>
-      </Route>
       <Route path="/bean">
-        <BeanList beans={beans} setBeans={setBeans} />
+        <BeanList beans={beans} setBeans={setBeans} userToken={user.token}/>
       </Route>
       <Route path="/coffee">
         <div className="userContent">

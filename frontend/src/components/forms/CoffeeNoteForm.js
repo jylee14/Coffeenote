@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useDispatch } from 'react-redux'
 import Modal from 'react-modal'
 
 import { createCoffeeNote } from '../../redux/reducers/coffeeReducer'
+import { useInputField } from '../../hooks/inputField'
 
 const CoffeeNoteForm = ({ style, userToken, isOpen, closeModal }) => {
-  Modal.setAppElement('.App')
+  Modal.setAppElement('.container')
   const dispatch = useDispatch()
 
   const formatDate = date => {
@@ -15,37 +16,37 @@ const CoffeeNoteForm = ({ style, userToken, isOpen, closeModal }) => {
     }
   }
 
-  const [origin, setOrigin] = useState('')
-  const [roastDate, setRoastDate] = useState(formatDate(new Date()))
-  const [method, setMethod] = useState('')
-  const [coffeeWeight, setCoffeeWeight] = useState(0)
-  const [finalWeight, setFinalWeight] = useState(0)
-  const [rating, setRating] = useState(1)
-  const [brewNotes, setBrewNotes] = useState('')
-  const [tasteNotes, setTasteNotes] = useState('')
+  const origin = useInputField('')
+  const roastDate = useInputField(formatDate(new Date()), 'date')
+  const method = useInputField('')
+  const coffeeWeight = useInputField(0)
+  const finalWeight = useInputField(0)
+  const rating = useInputField(1)
+  const brewNotes = useInputField('')
+  const tasteNotes = useInputField('')
 
   const createNote = e => {
     e.preventDefault()
 
     const coffee = {
-      origin,
-      roastDate: new Date(roastDate),
-      coffeeWeight,
-      finalWeight,
-      brewMethod: method,
-      tasteRating: rating,
-      brewNotes,
-      tasteNotes
+      origin: origin.value,
+      roastDate: new Date(roastDate.value),
+      coffeeWeight: coffeeWeight.value,
+      finalWeight: finalWeight.value,
+      brewMethod: method.value,
+      tasteRating: rating.value,
+      brewNotes: brewNotes.value,
+      tasteNotes: tasteNotes.value
     }
 
-    setOrigin('')
-    setRoastDate(formatDate(new Date()))
-    setMethod('')
-    setCoffeeWeight(0)
-    setFinalWeight(0)
-    setRating(1)
-    setBrewNotes('')
-    setTasteNotes('')
+    // origin.clear()
+    // roastDate.clear()
+    // coffeeWeight.clear()
+    // finalWeight.clear()
+    // method.clear()
+    // rating.clear()
+    // brewNotes.clear()
+    // tasteNotes.clear()
 
     dispatch(createCoffeeNote(userToken, coffee))
     closeModal()
@@ -67,92 +68,62 @@ const CoffeeNoteForm = ({ style, userToken, isOpen, closeModal }) => {
               <tr>
                 <td>Coffee Origin</td>
                 <td>
-                  <input
-                    type="text"
-                    value={origin}
-                    required={true}
-                    onChange={({ target }) => setOrigin(target.value)}
-                  />
+                  <input required={true} {...origin} />
                 </td>
               </tr>
               <tr>
                 <td>Roast Date</td>
                 <td>
-                  <input
-                    type="date"
-                    required={true}
-                    value={roastDate}
-                    onChange={({ target }) => {
-                      setRoastDate(target.value)
-                    }}
-                  />
+                  <input required={true} {...roastDate} />
                 </td>
               </tr>
               <tr>
                 <td>Brew Method</td>
                 <td>
-                  <input
-                    type="text"
-                    required={true}
-                    value={method}
-                    onChange={({ target }) => setMethod(target.value)}
-                  />
+                  <input required={true} {...method} />
                 </td>
               </tr>
               <tr>
                 <td>Coffee Weight (g)</td>
                 <td>
-                  <input
-                    type="number"
+                  <input {...coffeeWeight}
                     required={true}
                     min="0"
                     step="0.1"
-                    value={coffeeWeight}
-                    onChange={({ target }) => setCoffeeWeight(target.value)}
                   />
                 </td>
               </tr>
               <tr>
                 <td>Final Weight (mL)</td>
                 <td>
-                  <input
-                    type="number"
+                  <input {...finalWeight}
                     step="0.1"
                     required={true}
                     min={coffeeWeight}
-                    value={finalWeight}
-                    onChange={({ target }) => setFinalWeight(target.value)}
                   />
                 </td>
               </tr>
               <tr>
                 <td>Taste Rating</td>
                 <td>
-                  <input
-                    type="number"
+                  <input {...rating}
                     min="1"
                     max="5"
-                    value={rating}
-                    onChange={({ target }) => setRating(target.value)}
+                    value={rating.value}
+                    onChange={rating.onChange}
                   />
                 </td>
               </tr>
               <tr>
                 <td>Brew Notes</td>
                 <td>
-                  <textarea
-                    value={brewNotes}
-                    onChange={({ target }) => setBrewNotes(target.value)}
-                  />
+                  <textarea {...brewNotes} />
                 </td>
               </tr>
               <tr>
                 <td>Taste Notes</td>
                 <td>
-                  <textarea
-                    value={tasteNotes}
-                    onChange={({ target }) => setTasteNotes(target.value)}
-                  />
+                  <textarea {...tasteNotes} />
                 </td>
               </tr>
             </tbody>

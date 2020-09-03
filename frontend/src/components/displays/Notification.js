@@ -15,6 +15,7 @@ const Notification = () => {
     'borderStyle': 'solid',
     'borderRadius': '5px',
     'padding': '10px',
+    'marginTop': '6vh',
     'marginBottom': '10px',
   }
   return (

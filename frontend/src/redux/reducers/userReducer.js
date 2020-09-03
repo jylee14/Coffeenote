@@ -11,12 +11,10 @@ export const initialLoad = () => {
 }
 
 export const createUser = (username, password) => {
-  return async () => {
+  return async dispatch => {
     try {
-      await userService.create({
-        username,
-        password
-      })
+      await userService.create(username, password)
+      dispatch(login(username, password))
     } catch (err) {
       const message = err.response.data.error
       throw new Error(message)
@@ -24,13 +22,10 @@ export const createUser = (username, password) => {
   }
 }
 
-export const login = ({ username, password }) => {
+export const login = (username, password) => {
   return async dispatch => {
     try {
-      const user = await loginService.login({
-        username,
-        password
-      })
+      const user = await loginService.login(username, password)
       window.localStorage.setItem('savedUser', JSON.stringify(user))
       dispatch({
         type: 'LOGIN',
@@ -58,6 +53,8 @@ const reducer = (state = null, action) => {
     return action.user
   case 'LOGIN':
     return action.user
+  case 'CREATE':
+    return null
   case 'LOGOUT':
     return null
   default:
