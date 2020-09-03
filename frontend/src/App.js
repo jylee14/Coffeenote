@@ -9,6 +9,7 @@ import './misc/string'
 import { initialLoad } from './redux/reducers/userReducer'
 import { initializeCoffee } from './redux/reducers/coffeeReducer'
 
+import GreetingBanner from './components/displays/GreetingBanner'
 import UserPage from './components/displays/UserPage'
 import LandingPage from './components/displays/LandingPage'
 import Notification from './components/displays/Notification'
@@ -42,30 +43,33 @@ function App() {
 
 
   return (
-    <div className="container">
-      <Notification />
-      <Switch>
-        <Route path="/create">
-          <UserForm
-            action={createUser}
-            buttonLabel="Create"
-            onSuccess={() => {
-              dispatch(notify('New profile created successfully! Logging in...'))
-            }}
-            onFail={(err) => { dispatch(notify(err.message, true)) }}
-          />
-        </Route>
-        <Route path="/login">
-          <UserForm
-            action={login}
-            buttonLabel="Login"
-            onFail={(err) => { dispatch(notify(err.message, true)) }}
-          />
-        </Route>
-        <Route path="/">
-          {user ? <UserPage user={user}></UserPage> : <LandingPage></LandingPage>}
-        </Route>
-      </Switch>
+    <div>
+      <GreetingBanner username={(user || {}).username} />
+      <div className="container">
+        <Notification />
+        <Switch>
+          <Route path="/create">
+            <UserForm
+              action={createUser}
+              buttonLabel="Create"
+              onSuccess={() => {
+                dispatch(notify('New profile created successfully! Logging in...'))
+              }}
+              onFail={(err) => { dispatch(notify(err.message, true)) }}
+            />
+          </Route>
+          <Route path="/login">
+            <UserForm
+              action={login}
+              buttonLabel="Login"
+              onFail={(err) => { dispatch(notify(err.message, true)) }}
+            />
+          </Route>
+          <Route path="/">
+            {user ? <UserPage user={user}></UserPage> : <LandingPage></LandingPage>}
+          </Route>
+        </Switch>
+      </div>
     </div>
   )
 }

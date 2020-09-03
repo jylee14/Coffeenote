@@ -51,8 +51,8 @@ const BeanList = ({ beans, setBeans, userToken }) => {
   }
 
   return (
-    <div style={{ marginTop: '7vh' }}>
-      <h3>Here are all the recorded beans</h3>
+    <div style={{ marginTop: '7vh', zIndex: 0 }}>
+      <h4>Here are all the recorded beans</h4>
       <Accordion>
         {
           beans.map(bean =>
@@ -62,7 +62,7 @@ const BeanList = ({ beans, setBeans, userToken }) => {
               </Accordion.Toggle>
               <Accordion.Collapse eventKey={bean.id}>
                 <div>
-                  <Table>
+                  <Table responsive>
                     <tbody>
                       <tr><td>Referenced</td><td>{bean.referencedCounts} times</td></tr>
                       <tr><td>Most commonly brewed with this bean</td><td>{bean.mostFrequentBrew || '-'} ({bean.brewFrequency} times)</td></tr>

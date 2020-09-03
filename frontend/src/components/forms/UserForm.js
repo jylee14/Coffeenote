@@ -24,9 +24,9 @@ const UserForm = ({ action, buttonLabel, onSuccess, onFail, redirect = '/' }) =>
           }
           history.push(redirect)
         })
-        .catch(() => {
+        .catch((err) => {
           if (onFail && 'function' === typeof onFail) {
-            onFail()
+            onFail(err)
           }
         })
     }

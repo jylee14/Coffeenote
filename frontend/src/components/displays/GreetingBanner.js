@@ -19,24 +19,28 @@ const GreetingBanner = ({ username }) => {
     float: 'right'
   }
   return (
-    <header>
-      <Navbar collapseOnSelect expand="md" bg="dark" variant="dark" sticky="top">
-        <Navbar.Brand href="/">CoffeeNotes</Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav" sticky="right">
-          <Nav className="mr-auto">
-            <Nav.Link href="#" as="span"><Link to="/coffee">Coffee</Link></Nav.Link>
-            <Nav.Link href="#" as="span"><Link to="/bean">Beans</Link></Nav.Link>
-          </Nav>
-          <Navbar.Text className="justify-content-end">
-            {username}&apos;s profile
+    <Navbar collapseOnSelect expand="md" bg="dark" variant="dark" sticky="top">
+      <Navbar.Brand href="/">CoffeeNotes</Navbar.Brand>
+      {
+        username ?
+          <>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse id="responsive-navbar-nav" sticky="right">
+              <Nav className="mr-auto">
+                <Nav.Link href="#" as="span"><Link to="/coffee">Coffee</Link></Nav.Link>
+                <Nav.Link href="#" as="span"><Link to="/bean">Beans</Link></Nav.Link>
+              </Nav>
+              <Navbar.Text className="justify-content-end">
+                {username}&apos;s profile
           </Navbar.Text>
-          <span style={padding}>
-            <Button size="sm" onClick={handleLogout} variant="secondary">Logout</Button>
-          </span>
-        </Navbar.Collapse>
-      </Navbar>
-    </header>
+              <span style={padding}>
+                <Button size="sm" onClick={handleLogout} variant="secondary">Logout</Button>
+              </span>
+            </Navbar.Collapse>
+          </>
+          : null
+      }
+    </Navbar>
   )
 }
 
