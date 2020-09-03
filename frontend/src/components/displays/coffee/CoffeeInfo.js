@@ -1,87 +1,21 @@
 import React from 'react'
-import { deleteCoffeeNote } from '../../../redux/reducers/coffeeReducer'
+import { Card, ListGroup, ListGroupItem, Accordion } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 
-const BeanInfo = ({ bean }) => {
-  const formatDate = (dateString) => {
-    const asDate = new Date(dateString)
-    return asDate.toISOString().split('T')[0]
-  }
+import { deleteCoffeeNote } from '../../../redux/reducers/coffeeReducer'
 
-  return (
-    <tbody>
-      <tr>
-        <td>Origin</td>
-        <td>{bean.origin}</td>
-      </tr>
-      <tr>
-        <td>Roast Date</td>
-        <td>{formatDate(bean.roastDate)}</td>
-      </tr>
-    </tbody>
-  )
-}
-
-const BrewInfo = ({ coffee }) => {
-  return (
-    <tbody>
-      <tr>
-        <td>Brew Method</td>
-        <td>{coffee.brewMethod}</td>
-      </tr>
-      <tr>
-        <td>Weight of Bean (g)</td>
-        <td>{coffee.coffeeWeight}</td>
-      </tr>
-      <tr>
-        <td>Final Weight (mL)</td>
-        <td>{coffee.finalWeight}</td>
-      </tr>
-      <tr>
-        <td>Taste Rating</td>
-        <td>{coffee.tasteRating}</td>
-      </tr>
-      {
-        coffee.brewNotes ?
-          <tr>
-            <td>Brew Notes</td>
-            <td><pre>{coffee.brewNotes}</pre></td>
-          </tr>
-          : null
-      }
-      {
-        coffee.tasteNotes ?
-          <tr>
-            <td>Taste Notes</td>
-            <td><pre>{coffee.tasteNotes}</pre></td>
-          </tr>
-          : null
-      }
-    </tbody>
-  )
-}
-
-const CoffeeInfo = ({ coffee, width }) => {
+const CoffeeInfo = ({ coffee }) => {
   const dispatch = useDispatch()
   const user = useSelector(state => state.user)
 
-  const tableStyle = {
+  const cardStyle = {
     border: 'black',
     borderStyle: 'solid',
     borderWidth: '1px',
-    maxWidth: `${width / 5}px`,
-    minWidth: '300px',
+    maxWidth: '20em',
+    minWidth: '18em',
     position: 'relative',
-    margin: width < 450 ? 'auto' : '5px',
-  }
-
-  const buttonContainer = {
-    position: 'absolute',
-    bottom: 0,
-    right: 0,
-    left: 0,
-    textAlign: 'center',
-    padding: '2px'
+    margin: '5px'
   }
 
   const deleteNote = () => {
@@ -90,16 +24,52 @@ const CoffeeInfo = ({ coffee, width }) => {
     }
   }
 
+  const formatDate = (dateString) => {
+    const asDate = new Date(dateString)
+    return asDate.toISOString().split('T')[0]
+  }
+
   return (
-    <div style={tableStyle}>
-      <table style={{ marginBottom: '10px' }}>
-        <BeanInfo bean={coffee.bean}></BeanInfo>
-        <BrewInfo coffee={coffee}></BrewInfo>
-      </table>
-      <div style={buttonContainer}>
-        <button onClick={deleteNote}>Delete</button>
-      </div>
-    </div>
+    <Card style={cardStyle}>
+      <Card.Body>
+        <Card.Title>Origin: {coffee.bean.origin}</Card.Title>
+        <Card.Subtitle className="mb-2 text-muted">Roast Date: {formatDate(coffee.bean.roastDate)}</Card.Subtitle>
+        <ListGroup variant="flush">
+          <ListGroupItem>Brew Method <p style={{ float: 'right' }}>{coffee.brewMethod}</p></ListGroupItem>
+          <ListGroupItem>Coffee Weight (g) <p style={{ float: 'right' }}>{coffee.coffeeWeight}</p></ListGroupItem>
+          <ListGroupItem>Final Weight (mL) <p style={{ float: 'right' }}>{coffee.finalWeight}</p></ListGroupItem>
+          <ListGroupItem>Taste Rating <p style={{ float: 'right' }}>{coffee.tasteRating}</p></ListGroupItem>
+
+          {
+            coffee.brewNotes ?
+              <ListGroupItem>
+                <Accordion>
+                  <Accordion.Toggle as={Card.Header} eventKey="0">Coffee Brew Notes</Accordion.Toggle>
+                  <Accordion.Collapse eventKey="0">
+                    <Card.Body>{coffee.brewNotes}</Card.Body>
+                  </Accordion.Collapse>
+                </Accordion>
+              </ListGroupItem>
+              : null
+          }
+          {
+            coffee.tasteNotes ?
+              <ListGroupItem>
+                <Accordion>
+                  <Accordion.Toggle as={Card.Header} eventKey="1">Coffee Taste Notes</Accordion.Toggle>
+                  <Accordion.Collapse eventKey="1">
+                    <Card.Body>{coffee.tasteNotes}</Card.Body>
+                  </Accordion.Collapse>
+                </Accordion>
+              </ListGroupItem>
+              : null
+          }
+          <ListGroupItem as="button" onClick={deleteNote} variant="danger">
+            Delete
+          </ListGroupItem>
+        </ListGroup>
+      </Card.Body>
+    </Card>
   )
 }
 

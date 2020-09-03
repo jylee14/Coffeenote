@@ -5,6 +5,7 @@ import CoffeeNoteForm from '../forms/CoffeeNoteForm'
 import Filter from '../forms/Filter'
 import BeanList from './bean/BeanList'
 import CoffeeList from './coffee/CoffeeList'
+import { CardDeck, Button } from 'react-bootstrap'
 
 const UserPage = ({ user }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false)
@@ -34,8 +35,12 @@ const UserPage = ({ user }) => {
           <div className="userContent">
             <Filter></Filter>
 
-            <button onClick={openModal}>New Coffee Note</button>
-            <CoffeeList />
+            <Button block onClick={openModal}>New Coffee Note</Button>
+
+            <CardDeck>
+              <CoffeeList />
+            </CardDeck>
+
             <CoffeeNoteForm style={style} userToken={user.token} isOpen={modalIsOpen} closeModal={closeModal} />
           </div>
         </Route>

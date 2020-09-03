@@ -32,7 +32,7 @@ const GreetingBanner = ({ username }) => {
               </Nav>
               <Navbar.Text className="justify-content-end">
                 {username}&apos;s profile
-          </Navbar.Text>
+              </Navbar.Text>
               <span style={padding}>
                 <Button size="sm" onClick={handleLogout} variant="secondary">Logout</Button>
               </span>
