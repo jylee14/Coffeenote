@@ -4,12 +4,16 @@
 
 import { useState } from 'react'
 
-export function useInputField(initial = '', type = typeof initial) {
+export function useInputField(initial = '', type = typeof initial, required=true) {
   const [value, setValue] = useState(initial)
   const onChange = e => setValue(e.target.value)
+  const reset = () => setValue(initial)
+
   return {
     type,
     value,
-    onChange
+    onChange,
+    reset,
+    required
   }
 }

@@ -37,11 +37,9 @@ const UserPage = ({ user }) => {
 
             <Button block onClick={openModal}>New Coffee Note</Button>
 
-            <CardDeck>
-              <CoffeeList />
-            </CardDeck>
+            <CoffeeList />
 
-            <CoffeeNoteForm style={style} userToken={user.token} isOpen={modalIsOpen} closeModal={closeModal} />
+            <CoffeeNoteForm style={style} userToken={user.token} show={modalIsOpen} closeModal={closeModal} />
           </div>
         </Route>
       </div>

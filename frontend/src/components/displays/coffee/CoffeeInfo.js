@@ -13,7 +13,7 @@ const CoffeeInfo = ({ coffee }) => {
     borderStyle: 'solid',
     borderWidth: '1px',
     maxWidth: '20em',
-    minWidth: '18em',
+    minWidth: '16.5em',
     position: 'relative',
     margin: '5px'
   }

@@ -8,7 +8,7 @@ const FilterProperties = ({ filterables }) => {
   const dispatch = useDispatch()
   const onChange = e => dispatch(setFilterProperty(e.target.value))
 
-  dispatch(setFilterProperty(filterables[0]))
+  // dispatch(setFilterProperty(filterables[0]))
   return (
     <Form.Control as="select" onChange={onChange} value={filterables[0]}>
       {
@@ -30,7 +30,7 @@ const FilterOperations = () => {
     operations = ['contains']
   }
 
-  dispatch(setFilterOperation(operations[0]))
+  // dispatch(setFilterOperation(operations[0]))
   return (
     <Form.Control as="select" onChange={onChange} value={operations[0]}>
       {
