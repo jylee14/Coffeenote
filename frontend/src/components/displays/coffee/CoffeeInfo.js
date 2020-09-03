@@ -4,18 +4,20 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { deleteCoffeeNote } from '../../../redux/reducers/coffeeReducer'
 
-const CoffeeInfo = ({ coffee }) => {
+const CoffeeInfo = ({ coffee, width }) => {
   const dispatch = useDispatch()
   const user = useSelector(state => state.user)
 
+  const calculateCardCount = width => Math.ceil(width / 250)
   const cardStyle = {
     border: 'black',
     borderStyle: 'solid',
     borderWidth: '1px',
-    maxWidth: '20em',
-    minWidth: '16.5em',
+    maxWidth: '350px',
+    minWidth: `${width < 425 ? width - 30 : 250}px`,
+    width: `${width < 425 ? width - 30 : Math.floor(width/calculateCardCount(width))}px`,
     position: 'relative',
-    margin: '5px'
+    margin: '3px'
   }
 
   const deleteNote = () => {

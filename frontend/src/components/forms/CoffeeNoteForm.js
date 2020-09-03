@@ -6,7 +6,7 @@ import { createCoffeeNote } from '../../redux/reducers/coffeeReducer'
 import { useInputField } from '../../hooks/inputField'
 import ModalHeader from 'react-bootstrap/esm/ModalHeader'
 
-const CoffeeNoteForm = ({ style, userToken, show, closeModal }) => {
+const CoffeeNoteForm = ({ userToken, show, closeModal }) => {
   const dispatch = useDispatch()
 
   const formatDate = date => {

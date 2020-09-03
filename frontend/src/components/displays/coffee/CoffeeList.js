@@ -59,8 +59,8 @@ const CoffeeList = () => {
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
-    border: '10px',
-    maxWidth: `${width - 20}px`
+    justifyContent: 'space-evenly',
+    columnGap: '3px'
   }
   return (
     <div style={coffeeListStyle}>
