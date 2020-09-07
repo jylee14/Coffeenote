@@ -11,3 +11,10 @@ Math.average = function(...nums) {
   }
   return sum/nums.length
 }
+
+Math.sum = function(...nums) {
+  if(nums.length === 0) { return 0 }
+  let sum = 0
+  nums.forEach(num => sum += num)
+  return sum
+}
