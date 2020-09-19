@@ -32,7 +32,7 @@ const UserStats = () => {
             <td>Number of beans used</td>
           </tr>
           <tr>
-            <td><strong>{mostPurchasedOrigin}</strong></td>
+            <td><strong>{mostPurchasedOrigin || '-'}</strong></td>
             <td>Most purchased coffee origin</td>
           </tr>
           <tr>

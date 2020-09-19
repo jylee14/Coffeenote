@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Route } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import CoffeeNoteForm from '../forms/CoffeeNoteForm'
 
 import Filter from '../forms/Filter'
@@ -17,20 +17,22 @@ const UserPage = ({ user }) => {
 
   return (
     <div>
-      <Route path="/bean">
-        <BeanList beans={beans} setBeans={setBeans} userToken={user.token} />
-      </Route>
-      <Route path="/coffee">
-        <div className="userContent">
-          <Filter></Filter>
-          <Button block onClick={openModal}>New Coffee Note</Button>
-          <CoffeeList />
-          <CoffeeNoteForm userToken={user.token} show={modalIsOpen} closeModal={closeModal} />
-        </div>
-      </Route>
-      <Route path="/">
-        <UserStats />
-      </Route>
+      <Switch>
+        <Route path="/bean">
+          <BeanList beans={beans} setBeans={setBeans} userToken={user.token} />
+        </Route>
+        <Route path="/coffee">
+          <div className="userContent">
+            <Filter></Filter>
+            <Button block onClick={openModal}>New Coffee Note</Button>
+            <CoffeeList />
+            <CoffeeNoteForm userToken={user.token} show={modalIsOpen} closeModal={closeModal} />
+          </div>
+        </Route>
+        <Route path="/">
+          <UserStats />
+        </Route>
+      </Switch>
     </div>
   )
 }
