@@ -38,6 +38,7 @@ export const createCoffeeNote = (token, data) => {
 export const deleteCoffeeNote = (token, id) => {
   return async dispatch => {
     await service.deleteCoffeeNote(token, id)
+    dispatch(initializeBeans(token)) // re-load the bean store
     dispatch({
       type: 'DELETE_COFFEE_NOTE',
       data: { id }
