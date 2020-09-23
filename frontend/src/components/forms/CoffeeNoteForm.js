@@ -81,7 +81,7 @@ const CoffeeNoteForm = ({ userToken, show, closeModal }) => {
               <Col><FormControl {...coffeeWeight} min="1" step="0.1"></FormControl></Col>
             </Row>
             <Row style={padding}>
-              <Col><FormLabel>Final Weight</FormLabel></Col>
+              <Col><FormLabel>Final Weight (mL)</FormLabel></Col>
               <Col><FormControl {...finalWeight} min={Number(coffeeWeight.value) + 1} step="0.1"></FormControl></Col>
             </Row>
             <Row style={padding}>

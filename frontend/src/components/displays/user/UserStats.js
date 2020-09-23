@@ -29,7 +29,7 @@ const UserStats = () => {
         <tbody>
           <tr>
             <td><strong>{beansInStore}</strong></td>
-            <td>Number of beans used</td>
+            <td>Number of beans recorded</td>
           </tr>
           <tr>
             <td><strong>{mostPurchasedOrigin || '-'}</strong></td>
