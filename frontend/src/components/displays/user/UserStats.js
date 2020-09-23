@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { Table } from 'react-bootstrap'
-import { Counter } from '../../misc/counter'
+import { Counter } from '../../../misc/counter'
 
 const UserStats = () => {
   const rawData = useSelector(state => state.bean)

@@ -8,9 +8,9 @@ const FilterProperties = ({ filterables }) => {
   const dispatch = useDispatch()
   const onChange = e => dispatch(setFilterProperty(e.target.value))
 
-  // dispatch(setFilterProperty(filterables[0]))
   return (
-    <Form.Control as="select" onChange={onChange} value={filterables[0]}>
+    <Form.Control as="select" onChange={onChange}>
+      <option value={null}>Property</option>
       {
         filterables.map(filterable => <option key={filterable} value={filterable}>{filterable.capitalizeEach()}</option>)
       }
@@ -30,9 +30,9 @@ const FilterOperations = () => {
     operations = ['contains']
   }
 
-  // dispatch(setFilterOperation(operations[0]))
   return (
-    <Form.Control as="select" onChange={onChange} value={operations[0]}>
+    <Form.Control as="select" onChange={onChange}>
+      <option value={null}>Operation</option>
       {
         operations.map(operation => <option key={operation} value={operation}>{operation.capitalizeEach()}</option>)
       }

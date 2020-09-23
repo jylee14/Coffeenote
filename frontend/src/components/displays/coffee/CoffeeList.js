@@ -18,7 +18,7 @@ const CoffeeList = () => {
   }
 
   const filterNotes = (note, filterProperty, filterOperation, filterPredicate) => {
-    if (!filterPredicate || filterPredicate === '') { return true }
+    if (!filterProperty || !filterOperation || !filterPredicate || filterPredicate === '') { return true }
 
     let propertyToTest // this is the prop inside the note that will be checked
     if (filterProperty in note) {

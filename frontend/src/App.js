@@ -10,7 +10,7 @@ import { initialLoad } from './redux/reducers/userReducer'
 import { initializeCoffee } from './redux/reducers/coffeeReducer'
 
 import GreetingBanner from './components/displays/GreetingBanner'
-import UserPage from './components/displays/UserPage'
+import UserPage from './components/displays/user/UserPage'
 import LandingPage from './components/displays/LandingPage'
 import Notification from './components/displays/Notification'
 
@@ -39,8 +39,6 @@ function App() {
       dispatch(initializeCoffee(user.token))
     }
   }, [user, dispatch])
-
-
 
   return (
     <div>
